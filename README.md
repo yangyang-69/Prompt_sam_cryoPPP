@@ -4,7 +4,9 @@ This is the official repository for Prompt_sam_cryoPPP : Adapting Segment Anythi
 
 ## A Quick Overview
 
-![image-20231103184258159](C:\Users\gao\AppData\Roaming\Typora\typora-user-images\image-20231103184258159.png)
+![image](./image/image.png)
+
+
 
 ## Requirement
 
