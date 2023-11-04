@@ -11,7 +11,6 @@ import torchvision.transforms.functional as F
 import torchvision.transforms as transforms
 import pandas as pd
 from skimage.transform import rotate
-# from SAM_adapter_conf.SAM_adapter_utils import random_click
 import random
 
 class TrainDataset():
@@ -47,8 +46,8 @@ class TrainDataset():
             scale_per_layer=1,
         )
         points_for_image = point_grids[0] * points_scale
-        in_points = torch.as_tensor(points_for_image, device='cuda:1')
-        in_labels = torch.ones(in_points.shape[0], dtype=torch.int, device='cuda:1')
+        in_points = torch.as_tensor(points_for_image, device='cuda')
+        in_labels = torch.ones(in_points.shape[0], dtype=torch.int, device='cuda')
         points = (in_points, in_labels)
 
         return image, label, points
@@ -98,8 +97,8 @@ class TestDataset():
             scale_per_layer=1,
         )
         points_for_image = point_grids[0] * points_scale
-        in_points = torch.as_tensor(points_for_image, device='cuda:1')
-        in_labels = torch.ones(in_points.shape[0], dtype=torch.int, device='cuda:1')
+        in_points = torch.as_tensor(points_for_image, device='cuda')
+        in_labels = torch.ones(in_points.shape[0], dtype=torch.int, device='cuda')
         points = (in_points, in_labels)
 
         return image, label, points
@@ -172,24 +171,12 @@ class CryopppDataset(Dataset):
         msk_path = mask_name
 
         img = Image.open(img_path).convert('RGB')
-        mask = Image.open(msk_path).convert('L')  # ‘L’为灰度图像
-        # csv_file_path = os.path.join(self.args.Groundtruth_path,img_path.split("/")[-1].split("_")[0] + ".csv")
-        # with open(csv_file_path,"r") as f:
-        #     csv_file = pd.read_csv(f)
-        #     for i in range(csv_file.shape[0]):  # xywh format
-        #         X_Coordinate = csv_file.loc[i, "X-Coordinate"]
-        #         Y_Coordinate = csv_file.loc[i, "Y-Coordinate"]
-        #         Diameter = csv_file.loc[i, "Diameter"]
-        #         bbox = [X_Coordinate-Diameter/2, Y_Coordinate-Diameter/2, Diameter, Diameter]
-        #         bboxes.append(bbox)
+        mask = Image.open(msk_path).convert('L')
 
         newsize = (self.img_size, self.img_size)
         mask = mask.resize(newsize)
 
-        if self.prompt == 'random_click':
-            pt = random_click(np.array(mask) / 255, point_label, inout)
-
-        elif self.prompt == 'box':
+        if self.prompt == 'box':
             img_name = img_path.split('/')[-1]
             with open(os.path.join(self.data_path,"bbox.csv"),mode="r") as box_file:
                 reader = csv.reader(box_file)
@@ -205,21 +192,10 @@ class CryopppDataset(Dataset):
                 pass
 
         if self.transform:
-            state = torch.get_rng_state()  # 返回随机生成器状态(ByteTensor)
+            state = torch.get_rng_state()
             img = self.transform(img)
 
-            # 加的
-            # lower_bound, upper_bound = np.percentile(img, 0.5), np.percentile(img, 99.5)
-            # image_data_pre = np.clip(img, lower_bound, upper_bound)
-            # image_data_pre = (image_data_pre - np.min(image_data_pre)) / (
-            #         np.max(image_data_pre) - np.min(image_data_pre)) * 255.0
-            # image_data_pre[img == 0] = 0
-            # img = np.uint8(image_data_pre)
-            # img = transforms.ToTensor()(img)
-            # torch.as_tensor(torch.from_numpy(img), dtype=torch.float32)
-            # img = torch.tensor(img, dtype=torch.float32)
-
-            torch.set_rng_state(state)  # 设定随机生成器状态
+            torch.set_rng_state(state)
 
             if self.prompt == 'points_grids':
                 point_grids = build_all_layer_point_grids(
@@ -237,13 +213,6 @@ class CryopppDataset(Dataset):
 
             if self.transform_msk:
                 mask = self.transform_msk(mask)
-                # lower_bound, upper_bound = np.percentile(mask, 0.5), np.percentile(mask, 99.5)
-                # image_data_pre = np.clip(mask, lower_bound, upper_bound)
-                # image_data_pre = (image_data_pre - np.min(image_data_pre)) / (
-                #         np.max(image_data_pre) - np.min(image_data_pre)) * 255.0
-                # image_data_pre[mask == 0] = 0
-                # mask = np.uint8(image_data_pre)
-                # mask = transforms.ToTensor()(mask)
 
         name = name.split('/')[-1].split(".jpg")[0]
         image_meta_dict = {'filename_or_obj': name}

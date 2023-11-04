@@ -1,15 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: UTF-8 -*-
-'''
-@Project ：Medical-SAM-Adapter-main
-@File    ：Test.py
-@Author  ：yang
-@Date    ：2023/6/11 20:57
-'''
 
-
-# from dataset import *
-# from models.discriminatorlayer import discriminator
 from dataset import *
 from torch.utils.data import DataLoader
 from SAM_adapter_conf.SAM_adapter_utils import *

@@ -1,8 +1,3 @@
-# Copyright (c) Meta Platforms, Inc. and affiliates.
-# All rights reserved.
-
-# This source code is licensed under the license found in the
-# LICENSE file in the root directory of this source tree.
 
 import numpy as np
 import torch
@@ -151,15 +146,11 @@ class PromptEncoder(nn.Module):
             Bx(embed_dim)x(embed_H)x(embed_W)
         """
         bs = self._get_batch_size(points, boxes, masks)
-        # print('points shape:{}'.format(points[0].shape[0]))
-        # print('bs:{}'.format(bs))
+
         sparse_embeddings = torch.empty((bs, 0, self.embed_dim), device=self._get_device())
         if points is not None:
-            # coords = points
-            # labels = labels
+
             coords, labels = points
-            # print('coords:{}'.format(coords.shape))
-            # print('label:{}'.format(labels.shape))
             point_embeddings = self._embed_points(coords, labels, pad=(boxes is None))
             sparse_embeddings = torch.cat([sparse_embeddings, point_embeddings], dim=1)
         if boxes is not None:
@@ -173,12 +164,6 @@ class PromptEncoder(nn.Module):
                 bs, -1, self.image_embedding_size[0], self.image_embedding_size[1]
             )
 
-        # dense_embeddings = self.no_mask_embed.weight.reshape(1, -1, 1, 1).expand(
-        #         bs, -1, self.image_embedding_size[0], self.image_embedding_size[1]
-        #     )
-
-        # print('sparse_embeddings:{}'.format(sparse_embeddings.shape))
-        # print('dense_embeddings:{}'.format(dense_embeddings.shape))
 
         return sparse_embeddings, dense_embeddings
 

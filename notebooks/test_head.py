@@ -147,8 +147,8 @@ class TestDataset():
             scale_per_layer=1,
         )
         points_for_image = point_grids[0] * points_scale
-        in_points = torch.as_tensor(points_for_image,device='cuda:1')
-        in_labels = torch.ones(in_points.shape[0], dtype=torch.int,device='cuda:1')
+        in_points = torch.as_tensor(points_for_image,device='cuda')
+        in_labels = torch.ones(in_points.shape[0], dtype=torch.int,device='cuda')
         points = (in_points, in_labels)
 
         return image, label, points,image_name
@@ -220,7 +220,7 @@ if __name__ == '__main__':
     label_path = '/mnt/Data1/yzy/code/Sam/head-prompt/robustness/10028_V/test/labels/'
     train_data = TestDataset(image_path, label_path)
 
-    device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model_type = "vit_h"
 
     model = Model(model_type=model_type)
@@ -229,39 +229,34 @@ if __name__ == '__main__':
     test_dataloader = DataLoader(dataset=test_data, batch_size=1, shuffle=False)
     lossfunc = DiceCELoss(sigmoid=True, squared_pred=True, reduction='mean')
     threshold = (0.1, 0.3, 0.5, 0.7, 0.9)
-    subset_size = ['5','10','20','30','50','100','150','200','250']
 
-    for i in range(10):
-    # for i in subset_size:
 
-        state_dict = torch.load(f'/mnt/Data1/yzy/code/Sam/head-prompt/robustness/head_prompt_10028_robustness_{i}_add.pt')
-        model.load_state_dict(state_dict,strict=False)
+    state_dict = torch.load(f'/mnt/Data1/yzy/code/Sam/head-prompt/robustness/head_prompt_10028_robustness_{i}_add.pt')
+    model.load_state_dict(state_dict,strict=False)
 
-        loss_list = []
-        result_list = []
-        dice = []
-        model.eval()
-        with torch.no_grad():
-            for data,label,points,image_name in test_dataloader:
+    loss_list = []
+    result_list = []
+    dice = []
+    model.eval()
+    with torch.no_grad():
+        for data,label,points,image_name in test_dataloader:
 
-                data = data.to(device=device)
-                label = label.to(device=device)
+            data = data.to(device=device)
+            label = label.to(device=device)
 
-                denoised_img, pred = model(data, points)
+            denoised_img, pred = model(data, points)
 
-                loss = lossfunc(pred, label)
-                loss_list.append(loss.item())
+            loss = lossfunc(pred, label)
+            loss_list.append(loss.item())
 
-                result = eval_seg(pred, label, threshold)
-                result_list.append(result)
-                dice.append(result[1])
+            result = eval_seg(pred, label, threshold)
+            result_list.append(result)
+            dice.append(result[1])
 
-            print(f'------------------------------------------{i}----------------------------------------------')
+        print('loss:{}'.format(loss_list))
+        print('result:{}'.format(result_list))
 
-            print('loss:{}'.format(loss_list))
-            print('result:{}'.format(result_list))
-
-            print("loss_mean", np.mean(loss_list), "dice_mean", np.mean(dice))
+        print("loss_mean", np.mean(loss_list), "dice_mean", np.mean(dice))
 
 
 

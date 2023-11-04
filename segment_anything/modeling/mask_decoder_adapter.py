@@ -1,8 +1,3 @@
-# Copyright (c) Meta Platforms, Inc. and affiliates.
-# All rights reserved.
-
-# This source code is licensed under the license found in the
-# LICENSE file in the root directory of this source tree.
 
 import torch
 from torch import nn
@@ -124,7 +119,7 @@ class MaskDecoder(nn.Module):
 
         # Expand per-image data in batch direction to be per-mask
         if image_embeddings.shape[0] != tokens.shape[0]:  # image_embeddings.shape[0] -> batch size
-            src = torch.repeat_interleave(image_embeddings, tokens.shape[0], dim=0)  # 重复张量的元素
+            src = torch.repeat_interleave(image_embeddings, tokens.shape[0], dim=0)
         else:
             src = image_embeddings
         src = src + dense_prompt_embeddings

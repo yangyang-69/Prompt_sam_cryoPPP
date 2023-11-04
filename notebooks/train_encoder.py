@@ -1,11 +1,4 @@
-# train.py
-# !/usr/bin/env	python3
 
-""" train network using pytorch
-    Junde Wu
-"""
-
-# from dataset import *
 from tensorboardX import SummaryWriter
 from dataset import *
 from SAM_adapter_conf import settings
@@ -52,25 +45,21 @@ logger.info(args)
 transform_train = transforms.Compose([
     transforms.Resize((args.image_size, args.image_size)),
     transforms.ToTensor(),
-    # transforms.Normalize(mean=[0.3582489, 0.3582489, 0.3582489], std=[0.03951929, 0.03951929, 0.03951929])
 ])
 
 transform_train_seg = transforms.Compose([
     transforms.Resize((args.out_size, args.out_size)),
     transforms.ToTensor(),
-    # transforms.Normalize(mean=[0.3582489], std=[0.03951929])
 ])
 
 transform_test = transforms.Compose([
     transforms.Resize((args.image_size, args.image_size)),
     transforms.ToTensor(),
-    # transforms.Normalize(mean=[0.3582489, 0.3582489, 0.3582489], std=[0.03951929, 0.03951929, 0.03951929])
 ])
 
 transform_test_seg = transforms.Compose([
     transforms.Resize((args.out_size, args.out_size)),
     transforms.ToTensor(),
-    # transforms.Normalize(mean=[0.3582489], std=[0.03951929])
 ])
 
 if args.dataset == 'CryoPPP':
@@ -88,18 +77,13 @@ elif args.dataset == 'decathlon':
     nice_train_loader, nice_valid_loader, transform_train, transform_val, train_list, val_list = get_decath_loader(args)
 
 '''checkpoint path and tensorboard'''
-# iter_per_epoch = len(Glaucoma_training_loader)
+
 checkpoint_path = os.path.join(settings.CHECKPOINT_PATH, args.net, settings.TIME_NOW)
-# use tensorboard
-# TensorBoard 是一组用于数据可视化的工具。它包含在流行的开源机器学习库 Tensorflow 中。TensorBoard 的主要功能包括：
-# 可视化模型的网络架构;跟踪模型指标，如损失和准确性等;检查机器学习工作流程中权重、偏差和其他组件的直方图;显示非表格数据，包括图像、文本和音频;将高维嵌入投影到低维空间
+
 if not os.path.exists(settings.LOG_DIR):
     os.mkdir(settings.LOG_DIR)
 writer = SummaryWriter(log_dir=os.path.join(
     settings.LOG_DIR, args.net, settings.TIME_NOW))
-# input_tensor = torch.Tensor(args.b, 3, 256, 256).cuda(device = GPUdevice)
-# writer.add_graph(net, Variable(input_tensor, requires_grad=True))
-
 
 # create checkpoint folder to save model
 if not os.path.exists(checkpoint_path):
@@ -120,8 +104,8 @@ for epoch in range(settings.EPOCH):
         time_end = time.time()
         print('time_for_training ', time_end - time_start)
 
-        net.eval()  # 验证的结果统计指标（IOU、...）
-        if epoch and epoch % args.val_freq == 0 or epoch == settings.EPOCH - 1:  # 什么时候eval
+        net.eval()
+        if epoch and epoch % args.val_freq == 0 or epoch == settings.EPOCH - 1:
             tol, (eiou, edice) = function.validation_sam(args, nice_valid_loader, epoch, net, writer)
             logger.info(f'Total score: {tol}, IOU: {eiou}, DICE: {edice} || @ epoch {epoch}.')
 

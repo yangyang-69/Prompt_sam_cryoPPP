@@ -1,13 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: UTF-8 -*-
-'''
-@Project ：Sam 
-@File    ：image_encoder_prompting.py
-@Author  ：yang
-@Date    ：2023/8/2 11:50
-'''
-# PromptVit继承了transformer(原版Vit的类)
-# 做一个ImageEncoder的继承类，重点是实现追加的token，具体追加的地方在每一个Block内部，相当于每一个transformer的内部追加
+
 import os
 
 import torch
@@ -151,30 +142,20 @@ class PromptedImageEncoderViT(ImageEncoderViT):
 
         # initiate prompt:
         if self.args.INITIATION == "random":
-            val = math.sqrt(6. / float(3 * reduce(mul, patch_sizes, 1) + prompt_dim))  # noqa
+            val = math.sqrt(6. / float(3 * reduce(mul, patch_sizes, 1) + prompt_dim))
 
-            self.prompt_embeddings = nn.Parameter(torch.zeros(  # nn.Parameter: 可以被修正的类型
-                self.args.b, int(num_tokens/int(img_size / patch_size)), int(img_size / patch_size), prompt_dim))  # 0为最初始
-            # self.prompt_embeddings = nn.Parameter(torch.zeros(  # nn.Parameter: 可以被修正的类型
-            #     self.args.b, int(img_size / patch_size), int(num_tokens / int(img_size / patch_size)), prompt_dim))  # 0为最初始
+            self.prompt_embeddings = nn.Parameter(torch.zeros(
+                self.args.b, int(num_tokens/int(img_size / patch_size)), int(img_size / patch_size), prompt_dim))
 
-            # xavier_uniform initialization
-            nn.init.uniform_(self.prompt_embeddings.data, -val, val)  # 对token做一个初始化
+            nn.init.uniform_(self.prompt_embeddings.data, -val, val)
 
             if self.args.PROMPT_DEEP:
-
-                # save_image_embedding(args)
-                # embedding_mean = torch.mean(load_image_embedding(args), dim=1)
 
                 self.deep_num_layers = Counter(self.args.deep_token_block_configuration)[1]
 
                 self.deep_prompt_embeddings = nn.Parameter(torch.zeros(
                     self.deep_num_layers, self.args.b, int(num_tokens/int(img_size / patch_size)), int(img_size / patch_size), prompt_dim))
-                # self.deep_prompt_embeddings = nn.Parameter(torch.zeros(
-                #     self.deep_num_layers, self.args.b,int(img_size / patch_size), int(num_tokens / int(img_size / patch_size)),prompt_dim))
-                # 用image_embedding的均值进行初始化
-                # self.deep_prompt_embeddings.data = embedding_mean.repeat(self.deep_num_layers, self.args.b, int(num_tokens/int(img_size / patch_size)), 1, 1)
-                # xavier_uniform initialization
+
                 nn.init.uniform_(self.deep_prompt_embeddings.data, -val, val)
 
         else:
@@ -184,7 +165,7 @@ class PromptedImageEncoderViT(ImageEncoderViT):
 
         self.linear = nn.Linear((int(num_tokens/int(img_size / patch_size)) + int(img_size / patch_size)), int(img_size / patch_size))
 
-    def incorporate_prompt(self, x):  # token列表追加了prompt
+    def incorporate_prompt(self, x):
         # combine prompt embeddings with image-patch embeddings
         x = self.patch_embed(x)
         if self.pos_embed is not None:
@@ -194,9 +175,6 @@ class PromptedImageEncoderViT(ImageEncoderViT):
 
         x = torch.cat((
             self.prompt_dropout(self.prompt_proj(self.prompt_embeddings)[:B, :, :, :]), x), dim=1)
-
-        # x = torch.cat((
-        #     self.prompt_dropout(self.prompt_proj(self.prompt_embeddings)[:B,:,:,:]), x), dim=2)
 
         return x
 
@@ -213,10 +191,6 @@ class PromptedImageEncoderViT(ImageEncoderViT):
                 x = torch.cat((
                     deep_prompt_emb, x[:, int(self.args.NUM_TOKENS/int(self.img_size / self.patch_size)):, :, :]
                 ), dim=1)
-
-                # x = torch.cat((
-                #     deep_prompt_emb, x[:, :, int(self.args.NUM_TOKENS / int(self.img_size / self.patch_size)):, :]
-                # ), dim=2)
 
                 deep_index_count += 1
 
@@ -237,9 +211,7 @@ class PromptedImageEncoderViT(ImageEncoderViT):
         x = self.neck(x.permute(0, 3, 1, 2))
 
         if self.token_output == 'slice':
-            image_embedding = x[:, :, int(self.args.NUM_TOKENS/int(self.img_size / self.patch_size)):, :]  #  (1,256,64,64)   或者做一个projector
-            # image_embedding = x[:, :, :, int(self.args.NUM_TOKENS / int(self.img_size / self.patch_size)):]
-            # token = x[:, :, :int(self.args.NUM_TOKENS/int(self.img_size / self.patch_size)), :]
+            image_embedding = x[:, :, int(self.args.NUM_TOKENS/int(self.img_size / self.patch_size)):, :]
 
         elif self.token_output == 'linear':
             x = x.permute(0, 1, 3, 2)

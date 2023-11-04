@@ -46,7 +46,7 @@ class Model(nn.Module):
         self.unet = UNet_model(in_channels=3,out_channels=3)
         self.sam = Sam_model(model_type=model_type,sam_checkpoint=sam_checkpoint)
 
-        for n, value in self.sam.named_parameters():  # named_parameters() 方法可以对一个nn.Module中所有注册的参数进行迭代
+        for n, value in self.sam.named_parameters():
             if 'mask_decoder' in n:
                 value.requires_grad = True
             else:
@@ -187,66 +187,59 @@ if __name__ == '__main__':
 
     path = '/mnt/Data1/yzy/code/Sam/dataset/10947_split/'
     dataset_name = '10947'
-    subset_size_list = ['50','30','20','10','5']
 
     save_path = '/mnt/Data1/yzy/code/Sam/head-prompt/' + dataset_name +'/'
 
-    for subset_size in subset_size_list:
+    subset_size = 10
+    exp_name = f'fewshot_{subset_size}'
 
-        exp_name = f'fewshot_{subset_size}'
+    train_image = path + subset_size + '/train/images/'
+    train_label = path + subset_size + '/train/labels/'
+    train_data = TrainDataset(train_image, train_label)
+    train_dataloader = DataLoader(dataset=train_data, batch_size=1, shuffle=True)
 
-        train_image = path + subset_size + '/train/images/'
-        train_label = path + subset_size + '/train/labels/'
-        train_data = TrainDataset(train_image, train_label)
-        train_dataloader = DataLoader(dataset=train_data, batch_size=1, shuffle=True)
+    val_image = path + subset_size + '/valid/images/'
+    val_label = path + subset_size + '/valid/labels/'
+    val_data = TestDataset(val_image, val_label)
+    val_dataloader = DataLoader(dataset=val_data, batch_size=1, shuffle=True)
 
-        val_image = path + subset_size + '/valid/images/'
-        val_label = path + subset_size + '/valid/labels/'
-        val_data = TestDataset(val_image, val_label)
-        val_dataloader = DataLoader(dataset=val_data, batch_size=1, shuffle=True)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    epochs = 100
+    learning_rate = 0.0001
+    best_loss = 100
+    best_iou = 1
+    best_dice = 1
+    logger = logging.getLogger('head-prompt SAM')
 
-        test_image = path + 'test/labels/'
-        test_label = path + 'test/labels/'
-        test_data = TestDataset(test_image, val_label)
-        test_dataloader = DataLoader(dataset=test_data, batch_size=1, shuffle=True)
+    sam_checkpoint = "/mnt/Data1/yzy/code/Sam/model_checkpoint/sam_vit_h_4b8939.pth"
+    model_type = "vit_h"
 
-        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        epochs = 100
-        learning_rate = 0.0001
-        best_loss = 100
-        best_iou = 1
-        best_dice = 1
-        logger = logging.getLogger('head-prompt SAM')
+    model = Model(model_type=model_type, sam_checkpoint=sam_checkpoint)
+    model = model.to(device)
+    lossfunc = DiceCELoss(sigmoid=True, squared_pred=True, reduction='mean')
+    threshold = (0.1, 0.3, 0.5, 0.7, 0.9)
+    optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
-        sam_checkpoint = "/mnt/Data1/yzy/code/Sam/model_checkpoint/sam_vit_h_4b8939.pth"
-        model_type = "vit_h"
+    for epoch in range(epochs):
+        epoch_start_time = time.time()
+        train(model,train_dataloader)
+        val_loss,iou,dice = evaluate(model,val_dataloader)
 
-        model = Model(model_type=model_type, sam_checkpoint=sam_checkpoint)
-        model = model.to(device)
-        lossfunc = DiceCELoss(sigmoid=True, squared_pred=True, reduction='mean')
-        threshold = (0.1, 0.3, 0.5, 0.7, 0.9)
-        optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+        elapsed = time.time() - epoch_start_time
+        logger.info("-" * 89)
+        logger.info(
+            f"| end of epoch {epoch:3d} | time: {elapsed:5.2f}s | "
+            f"valid loss {val_loss:5.4f} | "f"iou {iou:3.2f}  | "f"dice {dice:3.2f}" )
+        logger.info("-" * 89)
 
-        for epoch in range(epochs):
-            epoch_start_time = time.time()
-            train(model,train_dataloader)
-            val_loss,iou,dice = evaluate(model,val_dataloader)
+        if (val_loss < best_loss) or (iou > best_iou) or (dice > best_dice) :
+            best_loss = val_loss
+            best_iou = iou
+            best_dice = dice
+            torch.save(model.state_dict(), save_path + 'head_prompt_' + dataset_name + '_' + exp_name + "_add.pt")
+            logger.info(f"Best model saved!")
 
-            elapsed = time.time() - epoch_start_time
-            logger.info("-" * 89)
-            logger.info(
-                f"| end of epoch {epoch:3d} | time: {elapsed:5.2f}s | "
-                f"valid loss {val_loss:5.4f} | "f"iou {iou:3.2f}  | "f"dice {dice:3.2f}" )
-            logger.info("-" * 89)
-
-            if (val_loss < best_loss) or (iou > best_iou) or (dice > best_dice) :
-                best_loss = val_loss
-                best_iou = iou
-                best_dice = dice
-                torch.save(model.state_dict(), save_path + 'head_prompt_' + dataset_name + '_' + exp_name + "_add.pt")
-                logger.info(f"Best model saved!")
-
-        logger.info('Head prompt ' + dataset_name + exp_name + ' training is complete ! ')
+    logger.info('Head prompt ' + dataset_name + exp_name + ' training is complete ! ')
 
 
 

@@ -1,13 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: UTF-8 -*-
-'''
-@Project ：Sam
-@File    ：image_encoder_prompting_old_token.py
-@Author  ：yang
-@Date    ：2023/8/2 11:50
-'''
-# PromptVit继承了transformer(原版Vit的类)
-# 做一个ImageEncoder的继承类，重点是实现追加的token，具体追加的地方在每一个Block内部，相当于每一个transformer的内部追加
+
 import os
 
 import torch
@@ -166,8 +157,6 @@ class PromptedImageEncoderViT(ImageEncoderViT):
                 image_embedding = x[:, :, int(self.args.NUM_TOKENS / int(self.img_size / self.patch_size)):, :]
             else:
                 image_embedding = x
-            # image_embedding = x[:, :, :, int(self.args.NUM_TOKENS / int(self.img_size / self.patch_size)):]
-            # token = x[:, :, :int(self.args.NUM_TOKENS/int(self.img_size / self.patch_size)), :]
 
         elif self.args.token_output_type == 'linear':
             x = x.permute(0, 1, 3, 2)
@@ -305,15 +294,15 @@ class Block_new(nn.Module):
                 # initiate prompt:
                 if self.args.INITIATION == "random":
                     val = math.sqrt(
-                        6. / float(3 * reduce(mul, (self.patch_size, self.patch_size), 1) + self.prompt_dim))  # noqa
+                        6. / float(3 * reduce(mul, (self.patch_size, self.patch_size), 1) + self.prompt_dim))
 
-                    self.prompt_embeddings = nn.Parameter(torch.zeros(  # nn.Parameter: 可以被修正的类型
+                    self.prompt_embeddings = nn.Parameter(torch.zeros(
                         self.args.b, int(self.num_tokens / int(self.img_size / self.patch_size)),
                         int(self.img_size / self.patch_size),
-                        self.prompt_dim))  # 0为最初始
+                        self.prompt_dim))
 
                     # xavier_uniform initialization
-                    nn.init.uniform_(self.prompt_embeddings.data, -val, val)  # 对token做一个初始化
+                    nn.init.uniform_(self.prompt_embeddings.data, -val, val)
 
             self.linear = nn.Linear((int(self.num_tokens/int(img_size / patch_size)) + int(img_size / patch_size)), int(img_size / patch_size))
 

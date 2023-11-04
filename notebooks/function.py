@@ -24,7 +24,7 @@ args = SAM_adapter_cfg.parse_args()
 GPUdevice = torch.device('cuda', args.gpu_device)
 pos_weight = torch.ones([1]).cuda(device=GPUdevice) * 2
 criterion_G = torch.nn.BCEWithLogitsLoss(
-    pos_weight=pos_weight)  # BCELoss和sigmoid融合  BECloss对输出向量的每个元素单独使用交叉熵损失函数，然后计算平均值
+    pos_weight=pos_weight)
 seed = torch.randint(1, 11, (args.b, 7))
 
 torch.backends.cudnn.benchmark = True
@@ -160,15 +160,11 @@ def remove_small_regions(
     assert mode in ["holes", "islands"]
     correct_holes = mode == "holes"
     working_mask = (correct_holes ^ mask).astype(
-        np.uint8)  # ^异或，hole：working mask标注mask中False位置为1，islands: working mask标注mask中False为0
+        np.uint8)
     n_labels, regions, stats, _ = cv2.connectedComponentsWithStats(working_mask,
-                                                                   8)  # 处理不规则连通区域 image : 是要处理的图片，官方文档要求是8位单通道的图像。connectivity : 可以选择是4连通还是8连通。
-    # n_labels : 返回值是连通区域的数量。
-    # regions : regions是一个与image一样大小的矩形（regions.shape = image.shape），其中每一个连通区域会有一个唯一标识，标识从0开始。
-    # stats ：stats会包含5个参数分别为x,y,h,w,s。分别对应每一个连通区域的外接矩形的起始坐标x,y；外接矩形的wide,height；s其实不是外接矩形的面积，实践证明是labels对应的连通区域的像素个数。
-    # centroids : 返回的是连通区域的质心。
-    sizes = stats[:, -1][1:]  # Row 0 is background label  # 获得stats中除了0（背景）之外的各个区域的像素个数
-    small_regions = [i + 1 for i, s in enumerate(sizes) if s < area_thresh]  # 筛选出像素个数少于阈值的region index
+                                                                   8)
+    sizes = stats[:, -1][1:]
+    small_regions = [i + 1 for i, s in enumerate(sizes) if s < area_thresh]
     if len(small_regions) == 0:
         return mask, False
     fill_labels = [0] + small_regions
@@ -177,7 +173,7 @@ def remove_small_regions(
         # If every region is below threshold, keep largest
         if len(fill_labels) == 0:
             fill_labels = [int(np.argmax(sizes)) + 1]
-    mask = np.isin(regions, fill_labels)  # 可以方便地判断数组element中的元素是否属于test_elements
+    mask = np.isin(regions, fill_labels)
     return mask, True
 
 
@@ -228,13 +224,13 @@ def train_sam(args, net: nn.Module, optimizer, train_loader,
     device = GPUdevice
 
     if args.thd:
-        lossfunc = DiceCELoss(sigmoid=True, squared_pred=True, reduction='mean')  # 也可以试试这个 针对seg任务
+        lossfunc = DiceCELoss(sigmoid=True, squared_pred=True, reduction='mean')
     else:
         # lossfunc = criterion_G
-        lossfunc = DiceCELoss(sigmoid=True, squared_pred=True, reduction='mean')  # 也可以试试这个 针对seg任务
+        lossfunc = DiceCELoss(sigmoid=True, squared_pred=True, reduction='mean')
 
     with tqdm(total=len(train_loader), desc=f'Epoch {epoch}', unit='img') as pbar:
-        for pack in train_loader:  # 调用ISIC2016.__getitem__
+        for pack in train_loader:
             imgs = pack['image'].to(dtype=torch.float32, device=GPUdevice)
             masks = pack['label'].to(dtype=torch.float32, device=GPUdevice)
             # for k,v in pack['image_meta_dict'].items():
@@ -278,7 +274,7 @@ def train_sam(args, net: nn.Module, optimizer, train_loader,
                     coords_torch = torch.as_tensor(point_coords, dtype=torch.float, device=GPUdevice)
                     labels_torch = torch.as_tensor(point_labels, dtype=torch.int, device=GPUdevice)
                     if args.prompt_approach == 'random_click':
-                        coords_torch, labels_torch = coords_torch[None, :, :], labels_torch[None, :]  # 追加一个新维度
+                        coords_torch, labels_torch = coords_torch[None, :, :], labels_torch[None, :]
                     elif args.prompt_approach == 'points_grids':
                         pass
                     pt = (coords_torch, labels_torch)
@@ -290,34 +286,22 @@ def train_sam(args, net: nn.Module, optimizer, train_loader,
             imgs = imgs.to(dtype=torch.float32, device=GPUdevice)
 
             '''Train'''
-            for n, value in net.named_parameters():  # named_parameters() 方法可以对一个nn.Module中所有注册的参数进行迭代
-                if "Adapter" not in n:  # 当前不是adapter的时候
-                    value.requires_grad = False  # 当前量不需要在计算中保留对应的梯度信息（只训练image encoder的adapter ？）
+            for n, value in net.named_parameters():
+                if "Adapter" not in n:
+                    value.requires_grad = False
 
 
             imge = net.image_encoder(imgs)  # image embeddings
 
-            # with torch.no_grad():
-            #     # imge= net.image_encoder(imgs)
-            #     se, de = net.prompt_encoder( # sparse embeddings for the points and boxes; dense embeddings for the masks
-            #         points=pt,
-            #         boxes=None,
-            #         masks=None,
-            #     )
-
-            # use requires_grad = False to freeze prompt encoder rather than torch.no_grad()
-            # Because the latter method will make the gradient not return,
-            # the gradient of image encoder will not be updated.
-
             if args.prompt_approach == 'box':
                 se, de = net.prompt_encoder(
-                    points=None,  # 用grids作为prompt
+                    points=None,
                     boxes=boxes,
                     masks=None,
                 )
             else:
                 se, de = net.prompt_encoder(
-                    points=pt,  # 用grids作为prompt
+                    points=pt,
                     boxes=None,
                     masks=None,
                 )
@@ -331,19 +315,14 @@ def train_sam(args, net: nn.Module, optimizer, train_loader,
                 multimask_output=False,
             )
 
-            # get_parameter_number(net)
-            # get_parameter_number(net.image_encoder)
-            # get_parameter_number(net.mask_decoder)
-
             loss = lossfunc(pred, masks)  # pred -> mask  masks -> label
 
-            pbar.set_postfix(**{'loss (batch)': loss.item()})  # 显示指标
+            pbar.set_postfix(**{'loss (batch)': loss.item()})
             epoch_loss += loss.item()
             loss.backward()
 
-            # nn.utils.clip_grad_value_(net.parameters(), 0.1)
-            optimizer.step()  # 更新权重
-            optimizer.zero_grad()  # 清除梯度
+            optimizer.step()
+            optimizer.zero_grad()
 
             '''vis images'''
             if vis:
@@ -394,8 +373,7 @@ def validation_sam(args, val_loader, epoch, net: nn.Module, clean_dir=True):
         for ind, pack in enumerate(val_loader):
             imgsw = pack['image'].to(dtype=torch.float32, device=GPUdevice)
             masksw = pack['label'].to(dtype=torch.float32, device=GPUdevice)
-            # for k,v in pack['image_meta_dict'].items():
-            #     print(k)
+
             name = pack['image_meta_dict']['filename_or_obj']
 
             buoy = 0
@@ -404,7 +382,7 @@ def validation_sam(args, val_loader, epoch, net: nn.Module, clean_dir=True):
             else:
                 evl_ch = int(imgsw.size(-1))
 
-            if 'pt' not in pack:  # 改   1：当前情况的结果   2：用默认的情况看效果
+            if 'pt' not in pack:
                 imgsw, ptw, masksw = generate_click_prompt(imgsw, masksw)
             else:
                 ptw = pack['pt']
@@ -431,7 +409,7 @@ def validation_sam(args, val_loader, epoch, net: nn.Module, clean_dir=True):
                         coords_torch = torch.as_tensor(point_coords, dtype=torch.float, device=GPUdevice)
                         labels_torch = torch.as_tensor(point_labels, dtype=torch.int, device=GPUdevice)
                         if args.prompt_approach == 'random_click':
-                            coords_torch, labels_torch = coords_torch[None, :, :], labels_torch[None, :]  # 追加一个新维度
+                            coords_torch, labels_torch = coords_torch[None, :, :], labels_torch[None, :]
                         elif args.prompt_approach == 'points_grids':
                             pass
                         pt = (coords_torch, labels_torch)
@@ -448,13 +426,13 @@ def validation_sam(args, val_loader, epoch, net: nn.Module, clean_dir=True):
 
                     if args.prompt_approach == 'box':
                         se, de = net.prompt_encoder(
-                            points=None,  # 用grids作为prompt
+                            points=None,
                             boxes=boxes,
                             masks=None,
                         )
                     else:
                         se, de = net.prompt_encoder(
-                            points=pt,  # 用grids作为prompt
+                            points=pt,
                             boxes=None,
                             masks=None,
                         )
@@ -490,19 +468,6 @@ def validation_sam(args, val_loader, epoch, net: nn.Module, clean_dir=True):
                                       reverse=False, box=pack['box'])
 
                     mask_old = masks
-                    # mask_threshold = 0.5
-                    # return_logits = False
-                    #
-                    # masks = postprocess_masks(pred, (1024, 1024), (1024, 1024))
-                    # if not return_logits:
-                    #     masks = masks > mask_threshold
-                    #
-                    # masks_np = masks[0].detach().cpu().numpy()
-                    # # true_point = random_click(masks_np[0], inout=True)
-                    #
-                    # image = torch.squeeze(imgs, dim=0).permute(1, 2, 0)
-                    # image = image.detach().cpu().numpy()
-                    # show_img_mask(image, masks_np)
 
                     temp = eval_seg(pred, mask_old, threshold)
                     print(temp)
@@ -542,9 +507,8 @@ def Test_sam(args, val_loader, epoch, net: nn.Module, clean_dir=True):
         for ind, pack in enumerate(val_loader):
             imgsw = pack['image'].to(dtype=torch.float32, device=GPUdevice)
             masksw = pack['label'].to(dtype=torch.float32, device=GPUdevice)
-            # for k,v in pack['image_meta_dict'].items():
-            #     print(k)
-            if 'pt' not in pack:  # 改   1：当前情况的结果   2：用默认的情况看效果
+
+            if 'pt' not in pack:
                 imgsw, ptw, masksw = generate_click_prompt(imgsw, masksw)
             else:
                 ptw = pack['pt']
@@ -578,7 +542,7 @@ def Test_sam(args, val_loader, epoch, net: nn.Module, clean_dir=True):
                         coords_torch = torch.as_tensor(point_coords, dtype=torch.float, device=GPUdevice)
                         labels_torch = torch.as_tensor(point_labels, dtype=torch.int, device=GPUdevice)
                         if args.prompt_approach == 'random_click':
-                            coords_torch, labels_torch = coords_torch[None, :, :], labels_torch[None, :]  # 追加一个新维度
+                            coords_torch, labels_torch = coords_torch[None, :, :], labels_torch[None, :]
                         elif args.prompt_approach == 'points_grids':
                             pass
                         pt = (coords_torch, labels_torch)
@@ -595,13 +559,13 @@ def Test_sam(args, val_loader, epoch, net: nn.Module, clean_dir=True):
 
                     if args.prompt_approach == 'box':
                         se, de = net.prompt_encoder(
-                            points=None,  # 用box作为prompt
+                            points=None,
                             boxes=boxes,
                             masks=None,
                         )
                     else:
                         se, de = net.prompt_encoder(
-                            points=pt,  # 用grids作为prompt
+                            points=pt,
                             boxes=None,
                             masks=None,
                         )
@@ -645,7 +609,6 @@ def Test_sam(args, val_loader, epoch, net: nn.Module, clean_dir=True):
                     masks = masks > mask_threshold
 
                 masks_np = masks[0].detach().cpu().numpy()
-                # true_point = random_click(masks_np[0], inout=True)
 
                 image = torch.squeeze(imgs, dim=0).permute(1, 2, 0)
                 image = image.detach().cpu().numpy()
@@ -689,7 +652,6 @@ def Test_sam(args, val_loader, epoch, net: nn.Module, clean_dir=True):
                         masks = masks > mask_threshold
 
                     masks_np = masks[0].detach().cpu().numpy()
-                    # true_point = random_click(masks_np[0], inout=True)
 
                     image = torch.squeeze(imgs, dim=0).permute(1, 2, 0)
                     image = image.detach().cpu().numpy()

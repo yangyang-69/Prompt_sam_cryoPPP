@@ -1,8 +1,3 @@
-# Copyright (c) Meta Platforms, Inc. and affiliates.
-# All rights reserved.
-
-# This source code is licensed under the license found in the
-# LICENSE file in the root directory of this source tree.
 
 import torch
 import torch.nn as nn
@@ -116,19 +111,6 @@ class ImageEncoderViT(nn.Module):
 
         return x
 
-        # x1 = self.patch_embed(x)
-        #
-        # if self.pos_embed is not None:
-        #     x1 = x1 + self.pos_embed
-        #
-        # for blk in self.blocks:
-        #     x2 = blk(x1)
-        #
-        # x = x1 + x2
-        #
-        # x = self.neck(x.permute(0, 3, 1, 2))
-
-        return x
 
 
 class Block(nn.Module):
