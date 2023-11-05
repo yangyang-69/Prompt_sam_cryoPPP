@@ -1,10 +1,10 @@
 
 from dataset import *
 from torch.utils.data import DataLoader
-from SAM_adapter_conf.SAM_adapter_utils import *
+from SAM_conf.SAM_utils import *
 import function
 
-args = SAM_adapter_cfg.parse_args()
+args = SAM_cfg.parse_args()
 if args.dataset == 'refuge' or args.dataset == 'refuge2':
     args.data_path = '../dataset'
 

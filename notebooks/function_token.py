@@ -4,8 +4,8 @@ import torch.nn as nn
 import torchvision
 from monai.metrics import DiceMetric
 from typing import Dict, Any
-from SAM_adapter_conf import settings
-from SAM_adapter_conf.SAM_adapter_utils import *
+from SAM_conf import settings
+from SAM_conf.SAM_utils import *
 import torch.nn.functional as F
 
 import matplotlib.pyplot as plt
@@ -16,10 +16,10 @@ from monai.transforms import (
     AsDiscrete,
 )
 from einops import rearrange
-from notebooks.SAM_adapter_conf import SAM_adapter_cfg
+from notebooks.SAM_conf import SAM_cfg
 from segment_anything import SamPredictor, SamAutomaticMaskGenerator
 
-args = SAM_adapter_cfg.parse_args()
+args = SAM_cfg.parse_args()
 
 GPUdevice = torch.device('cuda', args.gpu_device)
 pos_weight = torch.ones([1]).cuda(device=GPUdevice) * 2

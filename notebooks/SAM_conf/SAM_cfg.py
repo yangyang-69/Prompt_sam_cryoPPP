@@ -9,9 +9,9 @@ def parse_args():
     parser.add_argument('-net', type=str, required=True, help='net type')
     parser.add_argument('-baseline', type=str, default='unet', help='baseline net type')
     parser.add_argument('-seg_net', type=str, default='transunet', help='net type')
-    parser.add_argument('-mod', type=str, required=True, help='mod type:seg,cls,val_ad')
+    parser.add_argument('-mod', type=str, required=False, help='mod type:seg,cls,val_ad')
     parser.add_argument('-exp_name', type=str, required=True, help='net type')
-    parser.add_argument('-prompt_approach', type=str, required=True, help='the prompt approach: random_click or '
+    parser.add_argument('-prompt_approach', type=str, required=False, default="points_grids", help='the prompt approach: random_click or '
                                                                           'points_grids')
     parser.add_argument('-image_encoder_configuration',type=int, required=False, nargs='+',
                         default=[3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3],
@@ -33,7 +33,7 @@ def parse_args():
                         help='specify which block(31 block can use deep token, the first block use shallow token in default source code) add deep token : '
                              '0: without deep token. 1: add deep token. ')
     parser.add_argument('-iteration', type=int, default=0, required=False, help='whether to use iteration')
-    parser.add_argument('-token_method', type=str, default="old", required=False, help='select token method')
+    parser.add_argument('-token_method', type=str, default="new", required=False, help='select token method')
     #
     parser.add_argument('-min_mask_region_area', type=int,default=0, required=False, help='min mask region area')
     parser.add_argument('-type', type=str, default='map', help='condition type:ave,rand,rand_map')
@@ -45,7 +45,7 @@ def parse_args():
     parser.add_argument('-gpu_device', type=int, default=0, help='use which gpu')
     parser.add_argument('-sim_gpu', type=int, default=0, help='split sim to this gpu')
     parser.add_argument('-epoch_ini', type=int, default=1, help='start epoch')
-    parser.add_argument('-image_size', type=int, default=256, help='image_size')
+    parser.add_argument('-image_size', type=int, default=1024, help='image_size')
     parser.add_argument('-out_size', type=int, default=256, help='output_size')
     parser.add_argument('-patch_size', type=int, default=2, help='patch_size')
     parser.add_argument('-dim', type=int, default=512, help='dim_size')
@@ -53,7 +53,7 @@ def parse_args():
     parser.add_argument('-heads', type=int, default=16, help='heads number')
     parser.add_argument('-mlp_dim', type=int, default=1024, help='mlp_dim')
     parser.add_argument('-w', type=int, default=4, help='number of workers for dataloader')
-    parser.add_argument('-b', type=int, default=8, help='batch size for dataloader')
+    parser.add_argument('-b', type=int, default=1, help='batch size for dataloader')
     parser.add_argument('-s', type=bool, default=True, help='whether shuffle the dataset')
     parser.add_argument('-warm', type=int, default=1, help='warm up training phase')
     parser.add_argument('-lr', type=float, default=1e-4, help='initial learning rate')
@@ -63,7 +63,7 @@ def parse_args():
     parser.add_argument('-base_weights', type=str, default = 0, help='the weights baseline')
     parser.add_argument('-sim_weights', type=str, default = 0, help='the weights sim')
     parser.add_argument('-distributed', default='none' ,type=str,help='multi GPU ids to use')
-    parser.add_argument('-dataset', default='Turkey' ,type=str,help='dataset name')
+    parser.add_argument('-dataset', default='CryoPPP' ,type=str,help='dataset name')
     parser.add_argument('-sam_ckpt', default=None , help='sam checkpoint address')
     parser.add_argument('-thd', type=bool, default=False , help='3d or not')
     parser.add_argument('-chunk', type=int, default=96 , help='crop volume depth')

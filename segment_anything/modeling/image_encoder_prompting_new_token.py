@@ -13,7 +13,6 @@ from typing import Optional, Tuple, Type, Any
 from functools import reduce
 from operator import mul
 
-from notebooks.SAM_adapter_conf.SAM_adapter_utils import get_network
 from notebooks.dataset import CryopppDataset
 from .common import LayerNorm2d, MLPBlock
 

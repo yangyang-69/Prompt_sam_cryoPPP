@@ -45,7 +45,7 @@ import numpy as np
 from PIL import Image
 import torch
 
-from notebooks.SAM_adapter_conf import SAM_adapter_cfg
+from notebooks.SAM_conf import SAM_cfg
 # from precpt import run_precpt
 from segment_anything.modeling.discriminator import Discriminator
 # from siren_pytorch import SirenNet, SirenWrapper
@@ -72,7 +72,7 @@ from monai.data import (
     load_decathlon_datalist,
     set_track_meta,
 )
-args = SAM_adapter_cfg.parse_args()
+args = SAM_cfg.parse_args()
 device = torch.device('cuda', args.gpu_device)
 
 '''preparation of domain loss'''
@@ -99,18 +99,14 @@ def get_network(args, net, use_gpu=True, gpu_device = 0, distribution = True):
     """
 
     if net == 'sam':
+        from segment_anything.build_sam import sam_model_registry
+        net = sam_model_registry['vit_h'](checkpoint=args.sam_ckpt).to(device)
+    elif net == 'sam_adapter':
         from segment_anything.build_sam_adapter import sam_model_registry
-        # net = sam_model_registry['vit_b'](args,checkpoint=args.sam_ckpt).to(device)
         net = sam_model_registry['vit_h'](args,checkpoint=args.sam_ckpt).to(device)
     elif net == 'PromptVit':
-        if args.sam_vit_model == "b":
-            from segment_anything.build_sam_promptvit_old_token import sam_model_registry
-            net = sam_model_registry['vit_b'](args,checkpoint=args.sam_ckpt).to(device)
-        elif args.sam_vit_model == "h":
-            if args.token_method == "old":
-                from segment_anything.build_sam_promptvit_old_token import sam_model_registry
-                net = sam_model_registry['vit_h'](args,checkpoint=args.sam_ckpt).to(device)
-            elif args.token_method == "new":
+        if args.sam_vit_model == "h":
+            if args.token_method == "new":
                 from segment_anything.build_sam_promptvit_new_token import sam_model_registry
                 net = sam_model_registry['vit_h'](args,checkpoint=args.sam_ckpt).to(device)
 

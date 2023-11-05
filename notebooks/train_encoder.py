@@ -1,13 +1,13 @@
 
 from tensorboardX import SummaryWriter
 from dataset import *
-from SAM_adapter_conf import settings
-from notebooks.SAM_adapter_conf import SAM_adapter_cfg
+from SAM_conf import settings
+from notebooks.SAM_conf import SAM_cfg
 from torch.utils.data import DataLoader
-from notebooks.SAM_adapter_conf.SAM_adapter_utils import *
+from notebooks.SAM_conf.SAM_utils import *
 import function
 
-args = SAM_adapter_cfg.parse_args()
+args = SAM_cfg.parse_args()
 
 GPUdevice = torch.device('cuda', args.gpu_device)
 
