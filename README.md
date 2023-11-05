@@ -22,27 +22,27 @@ We provide code for training SAM in four different prompt ways as follows:
 
 ### Head-Prompt SAM
 
-1. Train:  `python train_head.py`
+1. Train:  `python ./notebooks/train_head.py`
 2. Evaluation: The code can automatically evaluate the model on the test set during training.
-3. Test and Result Visualization: `python test_head.py`.You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
+3. Test and Result Visualization: `python ./notebooks/test_head.py`.You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
 
 ### Finetune SAM
 
-1. Train:  `python train_finetune.py`
+1. Train:  `python ./notebooks/train_finetune.py`
 2. Evaluation: The code can automatically evaluate the model on the test set during training.
-3. Test and Result Visualization: `python test_finetune.py`.You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
+3. Test and Result Visualization: `python ./notebooks/test_finetune.py`.You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
 
 ### Prefix-Prompt SAM
 
-1. Train:  `python train_prefix.py`
+1. Train:  `python ./notebooks/train_prefix.py`
 2. Evaluation: The code can automatically evaluate the model on the test set during training.
-3. Test and Result Visualization: `python test_prefix.py`.You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
+3. Test and Result Visualization: `python ./notebooks/test_prefix.py`.You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
 
 ### Encoder-Prompt SAM
 
-1. Train:  `python train_encoder.py`
+1. Train:  `python ./notebooks/train_encoder.py`
 2. Evaluation: The code can automatically evaluate the model on the test set during training.
-3. Test and Result Visualization: `python test_encoder.py`.You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
+3. Test and Result Visualization: `python ./notebooks/test_encoder.py`.You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
 
 ## Acknowledgements
 
