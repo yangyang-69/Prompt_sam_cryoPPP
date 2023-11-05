@@ -164,7 +164,7 @@ Topaz
 **Figure 7**. Figure 7. Visualization of protein particle identification on three sample micrographs achieved by SAM with (a) Head Prompt, (b) Prefix Prompt, (c) Encoder Prompt, (d) Finetuning, along with (e) CrYOLO, and (f) Topaz.
 
 * dataset: xxx
-* checkpoint_example: 1. xxx  2. prefix/large_train.pth   3.  xxx
+* checkpoint_example: 1. xxx  2. prefix/large_train_80.pth   3.  xxx
 
 
 ## Acknowledgements
