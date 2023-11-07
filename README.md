@@ -4,9 +4,7 @@ This is the official repository for Prompt_sam_cryoPPP : Adapting Segment Anythi
 
 ## A Quick Overview
 
-![image](./image/image.png)
-
-
+![](./image/figure1.png)
 
 ## Requirement
 
@@ -52,7 +50,7 @@ We provide a reproduction of some experiments, including data sets, parameter se
 ###  Evaluation of native SAM's efficacy
 We use SAM’s automatic mask generator generated masks for a sample protein type (EMPIAR ID: 10028) and calculate the dice scores.
 
-![image]()
+<img src="./image/Figure3.png" alt="image" style="zoom: 25%;" />
 
  **Figure 3**. Evaluation of native SAM's efficacy in protein identification using EMPIAR ID 10028 cryo-EM micrographs.
 
@@ -67,7 +65,7 @@ python ./notebooks/test_ori_sam.py -net sam -exp_name test_original_on_10028 -sa
 ###  Adaptability introduced by three prompt-based learning approaches to SAM
 To assess the adaptability introduced by the three proposed prompt-based learning approaches to SAM, we conducted preliminary tests on three distinct protein types with different training sizes from the CryoPPP dataset (EMPIAR IDs: 10028, 10947, and 10059).
 
-![image]()
+![image](./image/figure4.png)
 
 **Figure 4**. Dice score comparisons of SAM with head prompt, prefix prompt, and encoder prompt on different training sizes using proteins from (a) EMPIAR ID 10028 (b) EMPIAR ID 10947 (c) EMPIAR ID 10059 cryo-EM micrographs.
 
@@ -109,7 +107,7 @@ xxx
 xxx
 ```
 
-![image]()
+![image](./image/figure5.png)
 
 **Figure 5**. A sample visualization of head prompt outputs (a) input cryo-EM micrograph (b) 
 prompted visualization after applying head prompt prior to SAM image encoder (c) segmentation mask from head prompted SAM (d) manual annotation to the input.
@@ -122,7 +120,7 @@ xxx
 
 ### Stability assessment
 
-![image]()
+<img src="./image/SFigure1.png" alt="image" style="zoom: 67%;" />
 
 **Supplementary Figure 1** To assess the stability of our proposed prompt-based learning methods, we executed 10 separate evaluation tests on them, adhering to a uniform protocol. Subsequently, from the remaining data, we randomly selected 10 images for model training using head prompt, prefix prompt, and encoder prompt techniques. The trained models were then evaluated using the testing data. This procedure was reiterated for 10 rounds.
 
@@ -132,7 +130,7 @@ xxx
 ### Ablation test for prefix prompt and encoder prompt
 Our utilized ViT in SAM has 32 Transformer blocks. We conducted ablation tests ranging from inserting prompts into all Transformer blocks to including them in some topmost or bottommost Transformer blocks. 
 
-![image]()
+<img src="./image/SFigure2.png" alt="image" style="zoom: 67%;" />
 
 **Supplementary Figure 2**. Comparative analysis of average Dice scores upon the integration of prefix prompts and encoder prompts at varied transformer layers within SAM.
 
@@ -141,7 +139,7 @@ You can set whether or not to add tokens to each ViT module through the **deep_t
 ### Comparison of finetuning and prompting approaches across all protein types 
 For each protein type sourced from CryoPPP dataset we randomly selected 10 samples as the training set, with the remaining samples designated as the test set for SAM adaptation. Figure 6 showcases the average Dice scores, accompanied by error bars, derived from both the fine-tuning and the three prompt-based learning techniques. 
 
-![image]()
+<img src="./image/figure6.png" alt="image" style="zoom: 67%;" />
 
 **Figure 6** Average Dice scores of SAM with head prompt, prefix prompt, encoder prompt, and fine-tuning across all protein types
 
@@ -157,9 +155,9 @@ For each protein type sourced from CryoPPP dataset we randomly selected 10 sampl
 
 ### Comparisons with existing tools
 we compared our techniques with two accessible cryo-EM protein identification tools: crYOLO and 
-Topaz
+Topaz.
 
-![image]()
+<img src="./image/figure7.png" alt="image" style="zoom: 25%;" />
 
 **Figure 7**. Figure 7. Visualization of protein particle identification on three sample micrographs achieved by SAM with (a) Head Prompt, (b) Prefix Prompt, (c) Encoder Prompt, (d) Finetuning, along with (e) CrYOLO, and (f) Topaz.
 
