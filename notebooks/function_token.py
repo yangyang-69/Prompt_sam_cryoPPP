@@ -485,7 +485,8 @@ def Test_sam(args, val_loader, epoch, net: nn.Module, clean_dir=True):
     threshold = (0.1, 0.3, 0.5, 0.7, 0.9)
     GPUdevice = torch.device('cuda:' + str(args.gpu_device))
     device = GPUdevice
-    # metrics = []
+    iou = []
+    dice = []
     metrics = [[], []]
 
     if args.thd:
@@ -608,61 +609,19 @@ def Test_sam(args, val_loader, epoch, net: nn.Module, clean_dir=True):
                                                             namecat + '_mask_gt' + '.jpg'))
 
                 temp = eval_seg(pred, mask_old, threshold)
-                print(temp)
+                print(name," iou:",temp[0]," dice:",temp[1])
+                iou.append(temp[0])
+                dice.append(temp[1])
 
                 metrics[0].append(temp)
                 mix_res[0] = tuple([sum(a) for a in zip(mix_res[0], temp)])
-
-                if args.min_mask_region_area > 0:
-                    pred_minimal = postprocess_small_regions(pred, args.min_mask_region_area)
-
-                    tot += lossfunc(pred_minimal, masks)
-
-                    '''vis images'''
-                    if ind % args.vis == 0:
-                        namecat = 'Test'
-                        for na in name:
-                            img_name = na.split('/')[-1].split('.')[0]
-                            namecat = namecat + img_name + '+'
-
-                        if args.prompt_approach == 'random_click':
-                            vis_image(imgs, pred_minimal, mask_old, os.path.join(args.path_helper['test_sample_path'],
-                                                                                 namecat + "minimal_area" + 'epoch+' + str(
-                                                                                     epoch) + '.jpg'),
-                                      reverse=False, points=showp)
-                        elif args.prompt_approach == 'points_grids':
-                            print(namecat + 'epoch+' + str(epoch) + '.jpg')
-                            vis_image(imgs, pred_minimal, mask_old, os.path.join(args.path_helper['test_sample_path'],
-                                                                                 namecat + "minimal_area" + 'epoch+' + str(
-                                                                                     epoch) + '.jpg'),
-                                      reverse=False, points=None)
-
-                    mask_threshold = 0.5
-                    return_logits = False
-
-                    masks = postprocess_masks(pred_minimal, (1024, 1024), (1024, 1024))
-                    if not return_logits:
-                        masks = masks > mask_threshold
-
-                    masks_np = masks[0].detach().cpu().numpy()
-                    # true_point = random_click(masks_np[0], inout=True)
-
-                    image = torch.squeeze(imgs, dim=0).permute(1, 2, 0)
-                    image = image.detach().cpu().numpy()
-                    show_img_mask(image, masks_np, os.path.join(args.path_helper['test_sample_path'],
-                                                                namecat + "minimal_area" + '_mask_gt' + '.jpg'))
-
-                    temp = eval_seg(pred_minimal, mask_old, threshold)
-
-                    metrics[1].append(temp)
-                    mix_res[1] = tuple([sum(a) for a in zip(mix_res[1], temp)])
 
             pbar.update()
 
     if args.evl_chunk:
         n_val = n_val * (imgsw.size(-1) // evl_ch)
 
-    print(metrics)
+    # print(metrics)
 
     return tot / n_val, tuple([a / n_val for a in mix_res[0]])
 
