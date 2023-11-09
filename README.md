@@ -26,9 +26,6 @@ We use SAM’s automatic mask generator generated masks for a sample protein typ
 
  **Figure 3**. Evaluation of native SAM's efficacy in protein identification using EMPIAR ID 10028 cryo-EM micrographs.
 
-* dataset: 10028_all
-* checkpoint_example: sam_vit_h_4b8939.pth
-
 Run `./notebooks/test_ori_sam.py`, get the mask and dice for testing the native SAM through the following command line.
 
 ```
@@ -48,9 +45,6 @@ To assess the adaptability introduced by the three proposed prompt-based learnin
 ![image](./image/figure4.png)
 
 **Figure 4**. Dice score comparisons of SAM with head prompt, prefix prompt, and encoder prompt on different training sizes using proteins from (a) EMPIAR ID 10028 (b) EMPIAR ID 10947 (c) EMPIAR ID 10059 cryo-EM micrographs.
-
-- dataset:
-- checkpoint:
 
 #### Head-Prompt SAM
 
@@ -91,16 +85,14 @@ To assess the adaptability introduced by the three proposed prompt-based learnin
 
 ### Stability assessment
 
-<img src="./image/SFigure1.png" alt="image" style="zoom: 67%;" />
+<img src="./image/SFigure1.png" alt="image" style="zoom: 50%;" />
 
 **Supplementary Figure 1** To assess the stability of our proposed prompt-based learning methods, we executed 10 separate evaluation tests on them, adhering to a uniform protocol. Subsequently, from the remaining data, we randomly selected 10 images for model training using head prompt, prefix prompt, and encoder prompt techniques. The trained models were then evaluated using the testing data. This procedure was reiterated for 10 rounds.
-
-* dataset: 10028
 
 ### Ablation test for prefix prompt and encoder prompt
 Our utilized ViT in SAM has 32 Transformer blocks. We conducted ablation tests ranging from inserting prompts into all Transformer blocks to including them in some topmost or bottommost Transformer blocks. 
 
-<img src="./image/SFigure2.png" alt="image" style="zoom: 67%;" />
+<img src="./image/SFigure2.png" alt="image" style="zoom: 50%;" />
 
 **Supplementary Figure 2**. Comparative analysis of average Dice scores upon the integration of prefix prompts and encoder prompts at varied transformer layers within SAM.
 
@@ -113,7 +105,6 @@ For each protein type sourced from CryoPPP dataset we randomly selected 10 sampl
 
 **Figure 6** Average Dice scores of SAM with head prompt, prefix prompt, encoder prompt, and fine-tuning across all protein types
 
-* dataset: all_protein
 * The number of trainable parameters and GPU memory usage for four different methods
 
 | Methods   | Fine-tuning      | Head prompt      | Prefix prompt      | Encoder prompt      |
@@ -130,10 +121,7 @@ Topaz.
 
 **Figure 7**. Figure 7. Visualization of protein particle identification on three sample micrographs achieved by SAM with (a) Head Prompt, (b) Prefix Prompt, (c) Encoder Prompt, (d) Finetuning, along with (e) CrYOLO, and (f) Topaz.
 
-* dataset: xxx
-* checkpoint:
-
-<img src="./image/figure8.png" style="zoom:60%;" />
+<img src="./image/figure8.png" style="zoom: 50%;" />
 
 
 ## Acknowledgements
@@ -145,5 +133,4 @@ We would like to acknowledge the valuable contribution from OpenAI's GPT-3.5 mod
 * Wu, Junde, et al. "Medical sam adapter: Adapting segment anything model for medical image segmentation." arXiv preprint arXiv:2304.12620 (2023).
 * Kirillov, Alexander, et al. "Segment anything." arXiv preprint arXiv:2304.02643 (2023).
 * Jia, Menglin, et al. "Visual prompt tuning." European Conference on Computer Vision. Cham: Springer Nature Switzerland, 2022.
-
 
