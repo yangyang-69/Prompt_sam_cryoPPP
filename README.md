@@ -123,11 +123,6 @@ Topaz.
 
 <img src="./image/figure8.png" style="zoom: 50%;" />
 
-
-## Acknowledgements
-
-We would like to acknowledge the valuable contribution from OpenAI's GPT-3.5 model for aiding in language editing. This work was funded by the National Institutes of Health [R35-GM126985].
-
 ## References
 * Dhakal, Ashwin, et al. "A large expert-curated cryo-EM image dataset for machine learning protein particle picking." Scientific Data 10.1 (2023): 392.
 * Wu, Junde, et al. "Medical sam adapter: Adapting segment anything model for medical image segmentation." arXiv preprint arXiv:2304.12620 (2023).
