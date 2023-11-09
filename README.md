@@ -1,6 +1,6 @@
 # Prompt_sam_cryoPPP
 
-This is the official repository for Prompt_sam_cryoPPP : Adapting Segment Anything Model (SAM) through Prompt-based Learning for Enhanced Protein Identification in Cryo-EM Micrographs (submitted to RECOMB2024).
+This is the official repository for Prompt_sam_cryoPPP : Adapting Segment Anything Model (SAM) through Prompt-based Learning for Enhanced Protein Identification in Cryo-EM Micrographs (submitted to [RECOMB 2024](https://recomb.org/recomb2024/)).
 
 ## A Quick Overview
 
