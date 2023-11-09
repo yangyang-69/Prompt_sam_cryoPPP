@@ -26,9 +26,6 @@ We use SAM’s automatic mask generator generated masks for a sample protein typ
 
  **Figure 3**. Evaluation of native SAM's efficacy in protein identification using EMPIAR ID 10028 cryo-EM micrographs.
 
-* dataset: 10028_all
-* checkpoint_example: sam_vit_h_4b8939.pth
-
 Run `./notebooks/test_ori_sam.py`, get the mask and dice for testing the native SAM through the following command line.
 
 ```
@@ -108,7 +105,6 @@ For each protein type sourced from CryoPPP dataset we randomly selected 10 sampl
 
 **Figure 6** Average Dice scores of SAM with head prompt, prefix prompt, encoder prompt, and fine-tuning across all protein types
 
-* dataset: all_protein
 * The number of trainable parameters and GPU memory usage for four different methods
 
 | Methods   | Fine-tuning      | Head prompt      | Prefix prompt      | Encoder prompt      |
