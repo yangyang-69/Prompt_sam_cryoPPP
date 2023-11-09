@@ -3,14 +3,14 @@
 we compared our techniques with two accessible cryo-EM protein identification tools: crYOLO and 
 Topaz.
 
-<img src="./image/figure7.png" alt="image" style="zoom: 25%;" />
+<img src="../image/figure7.png" style="zoom: 33%;" />
 
 **Figure 7**. Figure 7. Visualization of protein particle identification on three sample micrographs achieved by SAM with (a) Head Prompt, (b) Prefix Prompt, (c) Encoder Prompt, (d) Finetuning, along with (e) CrYOLO, and (f) Topaz.
 
-<img src="./image/figure8.png" style="zoom:60%;" />
+<img src="../image/figure8.png" style="zoom: 67%;" />
 
 - **dataset**:  large
-    
+  
     ```
     📦large
      ┣ 📂train

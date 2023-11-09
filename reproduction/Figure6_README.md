@@ -2,12 +2,12 @@
 
 For each protein type sourced from CryoPPP dataset we randomly selected 10 samples as the training set, with the remaining samples designated as the test set for SAM adaptation. Figure 6 showcases the average Dice scores, accompanied by error bars, derived from both the fine-tuning and the three prompt-based learning techniques. 
 
-<img src="./image/figure6.png" alt="image" style="zoom: 67%;" />
+<img src="../image/figure6.png" style="zoom: 67%;" />
 
 **Figure 6** Average Dice scores of SAM with head prompt, prefix prompt, encoder prompt, and fine-tuning across all protein types
 
 - **dataset**:  1024
-    
+  
     ```
     📦1024
      ┣ 📂10028

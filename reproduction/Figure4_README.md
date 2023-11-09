@@ -2,12 +2,12 @@
 
 To assess the adaptability introduced by the three proposed prompt-based learning approaches to SAM, we conducted preliminary tests on three distinct protein types with different training sizes from the CryoPPP dataset (EMPIAR IDs: 10028, 10947, and 10059).
 
-![image](./image/figure4.png)
+![](../image/figure4.png)
 
 **Figure 4**. Dice score comparisons of SAM with head prompt, prefix prompt, and encoder prompt on different training sizes using proteins from (a) EMPIAR ID 10028 (b) EMPIAR ID 10947 (c) EMPIAR ID 10059 cryo-EM micrographs.
 
 - **dataset**:  10028, 10947, 10059
-    
+  
     ```
     📦10028
      ┣ 📂5
