@@ -35,6 +35,9 @@ def parse_args():
     parser.add_argument('-iteration', type=int, default=0, required=False, help='whether to use iteration')
     parser.add_argument('-token_method', type=str, default="new", required=False, help='select token method')
     #
+    parser.add_argument('-fine_tuning_configuration',type=int, required=False, nargs='+',
+                        default=[0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0],
+                        help="1: doesn't freeze the specific block, 0: freeze the block")
     parser.add_argument('-min_mask_region_area', type=int,default=0, required=False, help='min mask region area')
     parser.add_argument('-type', type=str, default='map', help='condition type:ave,rand,rand_map')
     parser.add_argument('-vis', type=int, default=1, help='visualization')
