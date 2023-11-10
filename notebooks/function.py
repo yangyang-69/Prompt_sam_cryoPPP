@@ -285,10 +285,18 @@ def train_sam(args, net: nn.Module, optimizer, train_loader,
                 # true_mask_ave = cons_tensor(true_mask_ave)
             imgs = imgs.to(dtype=torch.float32, device=GPUdevice)
 
+            if args.fine_tuning_configuration: 
+                sam_no_freeze_block = [f"blocks.{idx}." for idx,i in enumerate(args.fine_tuning_configuration) if i == 1 ]
+
+            
             '''Train'''
             for n, value in net.named_parameters():
                 if "Adapter" not in n:
-                    value.requires_grad = False
+                    if args.fine_tuning_configuration:
+                        if 1 not in [1 for val in sam_no_freeze_block if val in n]: 
+                            value.requires_grad = False
+                    else:
+                        value.requires_grad = False
 
 
             imge = net.image_encoder(imgs)  # image embeddings
