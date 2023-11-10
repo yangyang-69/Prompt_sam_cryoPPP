@@ -51,13 +51,17 @@ For each protein type sourced from CryoPPP dataset we randomly selected 10 sampl
 
 3. Test:
    - checkpoint: 
-       
+     
        - Access 1 : 链接：https://pan.baidu.com/s/1FeGriwB9GkgKqgzA9_EJNQ  提取码：njcz
        - Access 2 : 
        
        ```
        📦checkpoint
-        ┗ 📜head_prompt_5.pth
+        ┣ 📂Figure6
+        ┃ ┣ 📂head
+        ┃ ┃ ┗ 📜head_prompt_10028_5.pth
+        ┃ ┃ ┗ 📜head_prompt_10059_5.pth
+        ┃ ┃ ┗ 📜head_prompt_10947_5.pth
        ```
        
    - Result Visualization: `python ./notebooks/test_head.py`.You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
@@ -82,9 +86,11 @@ For each protein type sourced from CryoPPP dataset we randomly selected 10 sampl
    
        ```
        📦checkpoint
-        ┗ 📜prefix_10028_5.pth
-        ┗ 📜prefix_10059_5.pth
-        ┗ 📜prefix_10947_5.pth
+        ┣ 📂Figure6
+        ┃ ┣ 📂prefix
+        ┃ ┃ ┗ 📜prefix_10028_5.pth
+        ┃ ┃ ┗ 📜prefix_10059_5.pth
+        ┃ ┃ ┗ 📜prefix_10947_5.pth
        ```
    
    - Result Visualization: You can use the 'vis_image' function to visualize the segmentation results of the test dataset.

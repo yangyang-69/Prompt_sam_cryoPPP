@@ -51,15 +51,17 @@ To assess the adaptability introduced by the three proposed prompt-based learnin
    
        ```
        📦checkpoint
-        ┗ 📜head_prompt_5.pth
-        ┗ 📜head_prompt_10.pth
-        ┗ 📜head_prompt_20.pth
-        ┗ 📜head_prompt_30.pth
-        ┗ 📜head_prompt_50.pth
-        ┗ 📜head_prompt_100.pth
-        ┗ 📜head_prompt_150.pth
-        ┗ 📜head_prompt_200.pth
-        ┗ 📜head_prompt_250.pth
+        ┣ 📂Figure4
+        ┃ ┣ 📂head
+        ┃ ┃ ┗ 📜head_prompt_10028_5.pth
+        ┃ ┃ ┗ 📜head_prompt_10028_10.pth
+        ┃ ┃ ┗ 📜head_prompt_10028_20.pth
+        ┃ ┃ ┗ 📜head_prompt_10028_30.pth
+        ┃ ┃ ┗ 📜head_prompt_10028_50.pth
+        ┃ ┃ ┗ 📜head_prompt_10028_100.pth
+        ┃ ┃ ┗ 📜head_prompt_10028_150.pth
+        ┃ ┃ ┗ 📜head_prompt_10028_200.pth
+        ┃ ┃ ┗ 📜head_prompt_10028_250.pth
        ```
    
    - Result Visualization: `python ./notebooks/test_head.py`.You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
@@ -84,15 +86,17 @@ To assess the adaptability introduced by the three proposed prompt-based learnin
    
        ```
        📦checkpoint
-        ┗ 📜prefix_10028_5.pth
-        ┗ 📜prefix_10028_10.pth
-        ┗ 📜prefix_10028_20.pth
-        ┗ 📜prefix_10028_30.pth
-        ┗ 📜prefix_10028_50.pth
-        ┗ 📜prefix_10028_100.pth
-        ┗ 📜prefix_10028_150.pth
-        ┗ 📜prefix_10028_200.pth
-        ┗ 📜prefix_10028_250.pth
+        ┣ 📂Figure4
+        ┃ ┣ 📂prefix
+        ┃ ┃ ┗ 📜prefix_10028_5.pth
+        ┃ ┃ ┗ 📜prefix_10028_10.pth
+        ┃ ┃ ┗ 📜prefix_10028_20.pth
+        ┃ ┃ ┗ 📜prefix_10028_30.pth
+        ┃ ┃ ┗ 📜prefix_10028_50.pth
+        ┃ ┃ ┗ 📜prefix_10028_100.pth
+        ┃ ┃ ┗ 📜prefix_10028_150.pth
+        ┃ ┃ ┗ 📜prefix_10028_200.pth
+        ┃ ┃ ┗ 📜prefix_10028_250.pth
        ```
    
    - Result Visualization: You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
