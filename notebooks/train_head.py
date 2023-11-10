@@ -191,22 +191,22 @@ def train(model,train_dataloader):
 
 if __name__ == '__main__':
 
-    path = '/mnt/Data1/yzy/code/Sam/dataset/10947_split/'
+    path = '/mnt/Data1/yzy/code/Sam/dataset/10947_split'
     dataset_name = '10947'
 
-    save_path = '/mnt/Data1/yzy/code/Sam/head-prompt/' + dataset_name +'/'
+    save_path = f'/mnt/Data1/yzy/code/Sam/head-prompt/{dataset_name}'
 
     subset_size = 10
     exp_name = f'fewshot_{subset_size}'
 
-    train_image = path + subset_size + '/train/images/'
-    train_label = path + subset_size + '/train/labels/'
-    train_data = TrainDataset(train_image, train_label)
+    train_image = f'{path}/{subset_size}/train/images/'
+    train_label = f'{path}/{subset_size}/train/labels/'
+    train_data = TrainDataset(train_image, train_label,is_robustness=False)
     train_dataloader = DataLoader(dataset=train_data, batch_size=1, shuffle=True)
 
-    val_image = path + subset_size + '/valid/images/'
-    val_label = path + subset_size + '/valid/labels/'
-    val_data = TestDataset(val_image, val_label)
+    val_image = f'{path}/{subset_size}/valid/images/'
+    val_label = f'{path}/{subset_size}/valid/labels/'
+    val_data = TestDataset(val_image, val_label,is_robustness=False)
     val_dataloader = DataLoader(dataset=val_data, batch_size=1, shuffle=True)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -242,10 +242,10 @@ if __name__ == '__main__':
             best_loss = val_loss
             best_iou = iou
             best_dice = dice
-            torch.save(model.state_dict(), save_path + 'head_prompt_' + dataset_name + '_' + exp_name + "_add.pt")
+            torch.save(model.state_dict(), f'{save_path}/head_prompt_{dataset_name}_{exp_name}.pt')
             logger.info(f"Best model saved!")
 
-    logger.info('Head prompt ' + dataset_name + exp_name + ' training is complete ! ')
+    logger.info(f'Head prompt {dataset_name} {exp_name} training is complete ! ')
 
 
 
