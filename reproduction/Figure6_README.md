@@ -51,10 +51,15 @@ For each protein type sourced from CryoPPP dataset we randomly selected 10 sampl
 
 3. Test:
    - checkpoint: 
+       
+       - Access 1 : 链接：https://pan.baidu.com/s/1FeGriwB9GkgKqgzA9_EJNQ  提取码：njcz
+       - Access 2 : 
+       
        ```
        📦checkpoint
         ┗ 📜head_prompt_5.pth
        ```
+       
    - Result Visualization: `python ./notebooks/test_head.py`.You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
 
 ## Prefix-Prompt SAM
@@ -71,12 +76,17 @@ For each protein type sourced from CryoPPP dataset we randomly selected 10 sampl
     python ./notebooks/test_prefix.py -net PromptVit -mod sam_token_prompt -exp_name test_prefix_all64_token_10028_5 -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./Checkpoint/Figure6/prefix_10028_5.pth -b 1 -dataset CryoPPP -data_path ./dataset/10028 -NUM_TOKENS 64 -deep_token_block_configuration 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
    ```
    - checkpoint: 
+   
+       - Access 1 : 链接：https://pan.baidu.com/s/1kL62juXbRveVNhC-uvIejQ  提取码：zq92
+       - Access 2 : 
+   
        ```
        📦checkpoint
         ┗ 📜prefix_10028_5.pth
         ┗ 📜prefix_10059_5.pth
         ┗ 📜prefix_10947_5.pth
        ```
+   
    - Result Visualization: You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
 
 

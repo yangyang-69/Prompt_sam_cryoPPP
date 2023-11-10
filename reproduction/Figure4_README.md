@@ -39,12 +39,16 @@ To assess the adaptability introduced by the three proposed prompt-based learnin
 
 ## Head-Prompt SAM
 
-1. Train:  `python ./notebooks/train_head.py` and modify the dataset directory in the script by yourself
+1. Train:  `python ./notebooks/train_head.py` and modify the dataset directory in the script by yourself.
 
 2. Evaluation: The code can automatically evaluate the model on the test set during training.
 
 3. Test:
    - checkpoint: 
+   
+       - Access 1 : 链接：https://pan.baidu.com/s/1GjsKcyKQFqODxSqCfySYCA  提取码：3vn8
+       - Access 2 : 
+   
        ```
        📦checkpoint
         ┗ 📜head_prompt_5.pth
@@ -57,6 +61,7 @@ To assess the adaptability introduced by the three proposed prompt-based learnin
         ┗ 📜head_prompt_200.pth
         ┗ 📜head_prompt_250.pth
        ```
+   
    - Result Visualization: `python ./notebooks/test_head.py`.You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
 
 ## Prefix-Prompt SAM
@@ -73,6 +78,10 @@ To assess the adaptability introduced by the three proposed prompt-based learnin
     python ./notebooks/test_prefix.py -net PromptVit -mod sam_token_prompt -exp_name test_prefix_all64_token_10028_5 -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./model_checkpoint/prefix/10028_5.pth -b 1 -dataset CryoPPP -data_path ./dataset/10028_split -NUM_TOKENS 64 -deep_token_block_configuration 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
    ```
    - checkpoint: 
+   
+       - Access 1 : 链接：https://pan.baidu.com/s/1vbizYY8_XDQxMr5TjeJxjQ  提取码：r2g4
+       - Access 2 : 
+   
        ```
        📦checkpoint
         ┗ 📜prefix_10028_5.pth
@@ -85,6 +94,7 @@ To assess the adaptability introduced by the three proposed prompt-based learnin
         ┗ 📜prefix_10028_200.pth
         ┗ 📜prefix_10028_250.pth
        ```
+   
    - Result Visualization: You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
 
 

@@ -50,10 +50,15 @@ Topaz.
 
 3. Test:
    - checkpoint: 
+       
+       - Access 1 : 链接：https://pan.baidu.com/s/1eyDr_qr0QwKOyIZG64YBdA  提取码：2cxn
+       - Access 2 : 
+       
        ```
        📦checkpoint
         ┗ 📜head_prompt_train_head_80_protein_data_add.pth
        ```
+       
    - Result Visualization: `python ./notebooks/test_head.py`.You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
 
 ## Prefix-Prompt SAM
@@ -70,10 +75,15 @@ Topaz.
     python ./notebooks/test_prefix.py -net PromptVit -mod sam_token_prompt -exp_name test_prefix_all64_token_10028_5 -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./Checkpoint/Figure7/prefix_large_train_80.pth -b 1 -dataset CryoPPP -data_path ./dataset/large -NUM_TOKENS 64 -deep_token_block_configuration 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
    ```
    - checkpoint: 
+       
+       - Access 1 : 链接：https://pan.baidu.com/s/11SZHYOQKQmC4prY2HgIrHw  提取码：ne4s
+       - Access 2 : 
+       
        ```
        📦checkpoint
         ┗ 📜prefix_large_train_80.pth
        ```
+       
    - Result Visualization: You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
 
 
