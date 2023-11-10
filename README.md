@@ -10,9 +10,8 @@ This is the official repository for Prompt_sam_cryoPPP : Adapting Segment Anythi
 
 Download **`model checkpoint`: [ViT-H SAM model.](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth)** and put it at ./model_checkpoint/
 
-1. Create a virtual environment `conda create -n prompt_sam_cryoPPP python==3.8`
-2. `git clone https://github.com/yangyang-69/Prompt_sam_cryoPPP.git`
-3. Enter the Prompt_sam_cryoPPP folder `cd Prompt_sam_cryoPPP` and run `pip install -e .`
+1`git clone https://github.com/yangyang-69/Prompt_sam_cryoPPP.git`
+3. Enter the Prompt_sam_cryoPPP folder `cd Prompt_sam_cryoPPP-main` and run `conda env create -f environment.yaml`
 
 ## Get Started
 
