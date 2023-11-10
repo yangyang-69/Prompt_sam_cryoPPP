@@ -12,7 +12,7 @@ Download **`model checkpoint`: [ViT-H SAM model.](https://dl.fbaipublicfiles.com
 
 1. `git clone https://github.com/yangyang-69/Prompt_sam_cryoPPP.git`
 2. Enter the Prompt_sam_cryoPPP folder `cd Prompt_sam_cryoPPP-main` and run `conda env create -f environment.yaml`
-3. activate the conda environment
+3. activate the conda environment `conda activate sam`
 
 ## Get Started
 
