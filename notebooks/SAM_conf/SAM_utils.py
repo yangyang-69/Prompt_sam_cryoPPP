@@ -104,6 +104,9 @@ def get_network(args, net, use_gpu=True, gpu_device = 0, distribution = True):
     elif net == 'sam_adapter':
         from segment_anything.build_sam_adapter import sam_model_registry
         net = sam_model_registry['vit_h'](args,checkpoint=args.sam_ckpt).to(device)
+    elif net == 'sam_fineTuning':
+        from segment_anything.build_sam_adapter import sam_model_registry
+        net = sam_model_registry['vit_h'](args,checkpoint=args.sam_ckpt).to(device)
     elif net == 'PromptVit':
         if args.sam_vit_model == "h":
             if args.token_method == "new":
