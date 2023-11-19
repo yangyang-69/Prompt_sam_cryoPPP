@@ -18,13 +18,7 @@ Download **`model checkpoint`: [ViT-H SAM model.](https://dl.fbaipublicfiles.com
 
 ###  Evaluation of native SAM's efficacy
 
-We use SAM’s automatic mask generator generated masks for a sample protein type (EMPIAR ID: 10028) and calculate the dice scores.
-
-<img src="./image/Figure3.png" alt="image" style="zoom: 25%;" />
-
- **Figure 3**. Evaluation of native SAM's efficacy in protein identification using EMPIAR ID 10028 cryo-EM micrographs.
-
-Run `./notebooks/test_ori_sam.py`, get the mask and dice for testing the native SAM through the following command line.
+We use SAM’s automatic mask generator generated masks for a sample protein type (EMPIAR ID: 10028) and calculate the dice scores. Run `./notebooks/test_ori_sam.py`, get the mask and dice for testing the native SAM through the following command line.
 
 ```
 python ./notebooks/test_ori_sam.py -net sam -exp_name test_original_on_10028 -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -data_path ./dataset/10028_all
@@ -52,10 +46,6 @@ python ./notebooks/test_ori_sam.py -net sam -exp_name test_original_on_10028 -sa
 
    You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
 
-   <img src="./image/figure5.png" alt="image" style="zoom:25%;" />
-
-   **Figure 5**. A sample visualization of head prompt outputs (a) input cryo-EM micrograph (b) 
-   prompted visualization after applying head prompt prior to SAM image encoder (c) segmentation mask from head prompted SAM (d) manual annotation to the input.
 
 ### Prefix-Prompt SAM
 
