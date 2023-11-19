@@ -1,18 +1,11 @@
+import argparse
 import sys
 import os
-curPath = os.path.abspath(os.path.dirname(__file__))
-rootPath = os.path.split(curPath)[0]
-sys.path.append(rootPath)
-
 import numpy as np
-import pandas as pd
 import cv2, os, time
 import torchvision
-from tqdm import tqdm
-import itertools, sys
 import torch
 torch.set_printoptions(profile="full")
-from torch import optim
 from PIL import Image
 from torchvision import models,transforms
 from typing import Tuple, List
@@ -24,7 +17,6 @@ import torchvision.utils as vutils
 import torch.nn as nn
 from segment_anything import sam_model_registry
 from segment_anything import build_sam_vit_h,build_sam_vit_b
-# os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
 
 def build_all_layer_point_grids(
     n_per_side: int, n_layers: int, scale_per_layer: int
@@ -167,7 +159,7 @@ class Sam_model(nn.Module):
     def __init__(self,model_type):
         super(Sam_model, self).__init__()
 
-        # self.sam = sam_model_registry[model_type]
+        self.sam = sam_model_registry[model_type]
         if model_type == 'vit_h':
             self.sam = build_sam_vit_h()
         elif model_type == 'vit_b':
@@ -222,14 +214,23 @@ def compute_dice_coefficient(mask_gt, mask_pred):
 
 if __name__ == '__main__':
 
-    image_path = '/mnt/Data1/yzy/code/Sam/head-prompt/robustness/10028_V/test/images/'
-    label_path = '/mnt/Data1/yzy/code/Sam/head-prompt/robustness/10028_V/test/labels/'
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-data_path', type=str, required=True, default='../dataset', help='The path of cryo-PPP data')
+    parser.add_argument('-data_name', type=str, required=True, help='the name of your dataset')
+    parser.add_argument('-exp_name', type=str, required=True, help='the name of your experiment')
+    parser.add_argument('-bs', type=int, default=1, help='batch size for dataloader')
+    parser.add_argument('-model_type', type=str, default="vit_h", help='')
+    parser.add_argument('-ckpt', required=True, type=str, help='the checkpoint you want to test')
+    parser.add_argument('-save_path', type=str, required=True, help='the path to save your test result')
+    args = parser.parse_args()
+
+    image_path = f'{args.data_path}/test/images/'
+    label_path = f'{args.data_path}/test/labels/'
     train_data = TestDataset(image_path, label_path)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model_type = "vit_h"
 
-    model = Model(model_type=model_type)
+    model = Model(model_type=args.model_type)
     model = model.to(device)
     test_data = TestDataset(image_path, label_path)
     test_dataloader = DataLoader(dataset=test_data, batch_size=1, shuffle=False)
@@ -237,12 +238,13 @@ if __name__ == '__main__':
     threshold = (0.1, 0.3, 0.5, 0.7, 0.9)
 
 
-    state_dict = torch.load(f'/mnt/Data1/yzy/code/Sam/head-prompt/robustness/head_prompt_10028_robustness_{i}_add.pt')
+    state_dict = torch.load(f'{args.ckpt}',map_location='cuda')
     model.load_state_dict(state_dict,strict=False)
 
     loss_list = []
     result_list = []
-    dice = []
+    iou_list = []
+    dice_list = []
     model.eval()
     with torch.no_grad():
         for data,label,points,image_name in test_dataloader:
@@ -257,12 +259,10 @@ if __name__ == '__main__':
 
             result = eval_seg(pred, label, threshold)
             result_list.append(result)
-            dice.append(result[1])
+            iou_list.append((result[0]))
+            dice_list.append(result[1])
 
-        print('loss:{}'.format(loss_list))
-        print('result:{}'.format(result_list))
-
-        print("loss_mean", np.mean(loss_list), "dice_mean", np.mean(dice))
+        print(f'Total score:{np.mean(loss_list)}, IOU:{np.mean(iou_list)}, DICE:{np.mean(dice_list)}')
 
 
 

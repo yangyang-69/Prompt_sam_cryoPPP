@@ -192,8 +192,8 @@ if __name__ == '__main__':
     parser.add_argument('-bs', type=int, default=1, help='batch size for dataloader')
     parser.add_argument('-epochs', type=int, default=100, help='the number of training sessions')
     parser.add_argument('-lr', type=int, default=0.00005, help='learning rate')
-    parser.add_argument('-sam_vit_model', type=str, default="h", help='')
-    parser.add_argument('-sam_ckpt', type=str, help='sam checkpoint path')
+    parser.add_argument('-model_type', type=str, default="vit_h", help='')
+    parser.add_argument('-sam_ckpt', default='../checkpoint/sam_vit_h_4b8939.pth', type=str, help='sam checkpoint path')
     parser.add_argument('-save_path', type=str, required=True, help='the path to save your training result')
     args = parser.parse_args()
 
@@ -213,10 +213,7 @@ if __name__ == '__main__':
     best_dice = 1
     logger = logging.getLogger('head-prompt SAM')
 
-    sam_checkpoint = "/mnt/Data1/yzy/code/Sam/model_checkpoint/sam_vit_h_4b8939.pth"
-    model_type = "vit_h"
-
-    model = Model(model_type=model_type, sam_checkpoint=sam_checkpoint)
+    model = Model(model_type=args.model_type, sam_checkpoint=args.sam_ckpt)
     model = model.to(device)
     lossfunc = DiceCELoss(sigmoid=True, squared_pred=True, reduction='mean')
     threshold = (0.1, 0.3, 0.5, 0.7, 0.9)
