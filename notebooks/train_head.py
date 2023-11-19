@@ -1,9 +1,3 @@
-import sys
-import os
-curPath = os.path.abspath(os.path.dirname(__file__))
-rootPath = os.path.split(curPath)[0]
-sys.path.append(rootPath)
-
 import torch
 import torch.nn as nn
 import numpy as np
@@ -17,7 +11,7 @@ from dataset import TrainDataset,TestDataset
 from torch.autograd import Function
 import time
 import logging
-import copy
+import argparse
 
 class Sam_model(nn.Module):
     def __init__(self,model_type,sam_checkpoint):
@@ -191,27 +185,29 @@ def train(model,train_dataloader):
 
 if __name__ == '__main__':
 
-    path = '/mnt/Data1/yzy/code/Sam/dataset/10947_split'
-    dataset_name = '10947'
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-data_path', type=str, required=True, default='../dataset', help='The path of cryo-PPP data')
+    parser.add_argument('-data_name', type=str, required=True, help='the name of your dataset')
+    parser.add_argument('-exp_name', type=str, required=True, help='the name of your experiment')
+    parser.add_argument('-bs', type=int, default=1, help='batch size for dataloader')
+    parser.add_argument('-epochs', type=int, default=100, help='the number of training sessions')
+    parser.add_argument('-lr', type=int, default=0.00005, help='learning rate')
+    parser.add_argument('-sam_vit_model', type=str, default="h", help='')
+    parser.add_argument('-sam_ckpt', type=str, help='sam checkpoint path')
+    parser.add_argument('-save_path', type=str, required=True, help='the path to save your training result')
+    args = parser.parse_args()
 
-    save_path = f'/mnt/Data1/yzy/code/Sam/head-prompt/{dataset_name}'
-
-    subset_size = 10
-    exp_name = f'fewshot_{subset_size}'
-
-    train_image = f'{path}/{subset_size}/train/images/'
-    train_label = f'{path}/{subset_size}/train/labels/'
+    train_image = f'{args.data_path}/train/images/'
+    train_label = f'{args.data_path}/train/labels/'
     train_data = TrainDataset(train_image, train_label,is_robustness=False)
     train_dataloader = DataLoader(dataset=train_data, batch_size=1, shuffle=True)
 
-    val_image = f'{path}/{subset_size}/valid/images/'
-    val_label = f'{path}/{subset_size}/valid/labels/'
+    val_image = f'{args.data_path}/valid/images/'
+    val_label = f'{args.data_path}/valid/labels/'
     val_data = TestDataset(val_image, val_label,is_robustness=False)
-    val_dataloader = DataLoader(dataset=val_data, batch_size=1, shuffle=True)
+    val_dataloader = DataLoader(dataset=val_data, batch_size=args.bs, shuffle=True)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    epochs = 100
-    learning_rate = 0.0001
     best_loss = 100
     best_iou = 1
     best_dice = 1
@@ -224,9 +220,9 @@ if __name__ == '__main__':
     model = model.to(device)
     lossfunc = DiceCELoss(sigmoid=True, squared_pred=True, reduction='mean')
     threshold = (0.1, 0.3, 0.5, 0.7, 0.9)
-    optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+    optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
 
-    for epoch in range(epochs):
+    for epoch in range(args.epochs):
         epoch_start_time = time.time()
         train(model,train_dataloader)
         val_loss,iou,dice = evaluate(model,val_dataloader)
@@ -242,10 +238,10 @@ if __name__ == '__main__':
             best_loss = val_loss
             best_iou = iou
             best_dice = dice
-            torch.save(model.state_dict(), f'{save_path}/head_prompt_{dataset_name}_{exp_name}.pt')
+            torch.save(model.state_dict(), f'{args.save_path}/head_prompt_{args.data_name}_{args.exp_name}.pt')
             logger.info(f"Best model saved!")
 
-    logger.info(f'Head prompt {dataset_name} {exp_name} training is complete ! ')
+    logger.info(f'Head prompt {args.data_name} {args.exp_name} training is complete ! ')
 
 
 
