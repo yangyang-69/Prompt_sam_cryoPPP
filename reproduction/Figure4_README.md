@@ -87,7 +87,7 @@ You can visualize the segmentation results of the test dataset through the **'vi
 
 - #### checkpoint
   
-    - Access 1 : Baidu Netdisk https://pan.baidu.com/s/1GjsKcyKQFqODxSqCfySYCA（3vn8）
+    - Access 1 : Baidu Netdisk https://pan.baidu.com/s/1GjsKcyKQFqODxSqCfySYCA （3vn8）
     - Access 2 : Google Drive  https:xxx
     
     ```
@@ -122,7 +122,7 @@ You can visualize the segmentation results of the test dataset through the **'vi
 
 - #### checkpoint
   
-    - Baidu Netdisk： https://pan.baidu.com/s/1vbizYY8_XDQxMr5TjeJxjQ（r2g4）
+    - Baidu Netdisk： https://pan.baidu.com/s/1vbizYY8_XDQxMr5TjeJxjQ （r2g4）
    - Google Drive  ：https:xxx
      
     ```
