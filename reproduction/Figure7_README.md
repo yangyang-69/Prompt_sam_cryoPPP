@@ -12,25 +12,18 @@ Topaz.
 ## Guideline
 For reproduction, please download the sample dataset and the corresponding checkpoints, and modify their paths in the given command line example.
 By running the sample command line, you can get the **IOU and dice** of each test image and the **average of IOU and dice** of all images.
+
+```
+Total score: xxx, IOU: xxx, DICE
+```
+
 You can visualize the segmentation results of the test dataset through the **'vis_image'** function.
 
 
-- **Command Line Arguments**
-(放入参数解释)
+- ### **Dataset:  large**
 
-- **Output presentation**
-  ```
-      => resuming from xxx.pth
-      => loaded checkpoint xxx.pth (epoch x)
-      [Your parameter settings]
-      test data length: xx xx
-      Validation round:   x%|      | 0/50   ['figure name']  iou: xxx  dice: xxx
-      2023-11-08 10:48:56,154 - Total score: xxx, IOU: xxx, DICE: xxx || @ epoch x.
-  ```
-
-- **dataset:  large**
-  - Access 1 : Baidu Netdisk https:xxx
-  - Access 2 : Google Drive  https:xxx
+  - Baidu Netdisk ：https://pan.baidu.com/s/1uu14w11I2HlW_ZHIzuqLCw （jm1j）
+  - Google Drive  https:xxx
     ```
     📦large
      ┣ 📂train
@@ -58,69 +51,101 @@ You can visualize the segmentation results of the test dataset through the **'vi
      ┃ ┣ 📂...
     ```
 
-## Finetuning SAM
-- checkpoint:
-    - Access 1 : Baidu Netdisk https:xxx
-    - Access 2 : Google Drive  https:xxx
+### Finetuning SAM
+- #### checkpoint
+    
+    - Baidu Netdisk https:xxx
+   - Google Drive  https:xxx
+      
+    
+    ```
+    📦checkpoint
+     ┣ 📂Figure7
+     ┃ ┗ 📜finetune_large_train_80.pth
+    ```
+    
+- #### Command Line
    
-       ```
-       📦checkpoint
-        ┣ 📂Figure7
-        ┃ ┗ 📜finetune_large_train_80.pth
-       ```
-
-- Command Line: 
    ```
     python ./notebooks/test_finetune.py -net sam -mod sam_fine -exp_name test_finetune_large -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./checkpoint/FIgure7/finetune_large_train_80.pth -b 1 -dataset CryoPPP -data_path ./dataset/large/test_7types -image_encoder_configuration 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
    ```
 
 
-## Head-Prompt SAM
+### Head-Prompt SAM
 
-- checkpoint: 
-     
-    - Access 1 : Baidu Netdisk https://pan.baidu.com/s/1eyDr_qr0QwKOyIZG64YBdA  
-    - Access 2 : Google Drive  
-       
+- #### checkpoint
+  
+    - Baidu Netdisk：https://pan.baidu.com/s/1u8DyhDpzBDrKzsb8gwMD8Q （flaq）
+    - Google Drive  
+      
     ```
     📦checkpoint
      ┣ 📂Figure7
      ┃ ┗ 📜head_prompt_large_train_80.pth
     ```
   
-- Command Line: 
+- #### Command Line
+   
    ```
    python ./notebooks/test_head.py -data_path ./dataset/large -data_name 10028 -exp_name test_head_large -ckpt ./checkpoint/Fgiure7/head/head_prompt_large_train_80.pth
    ```
-## Prefix-Prompt SAM
 
-- checkpoint: 
-    - Access 1 : Baidu Netdisk https://pan.baidu.com/s/11SZHYOQKQmC4prY2HgIrHw
-    - Access 2 : Google Drive
-       
-      ```
-      📦checkpoint
-       ┣ 📂Figure7
-       ┃ ┗ 📜prefix_large_train_80.pth
-      ```
+- #### Command Line Arguments
 
-- Command Line: 
-   ```
-    python ./notebooks/test_prefix.py -net PromptVit -mod sam_token_prompt -exp_name test_prefix_all64_token_large -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./checkpoint/Figure7/prefix_large_train_80.pth -b 1 -dataset CryoPPP -data_path ./dataset/large/test_7types -NUM_TOKENS 64 -deep_token_block_configuration 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-   ```
+  - -data_path ： Training and Testing data storage path [type: str]
+  - -data_name : Name of the dataset involved in the training [type: str]
+  - -exp_name : You can define your own name for this experiment [type: str]
+  - -ckpt : The checkpoints you saved during training and their paths [type: str]
 
-## Encoder-Prompt SAM
-- checkpoint:
-    - Access 1 : Baidu Netdisk https:xxx
-    - Access 2 : Google Drive  https:xxx
+### Prefix-Prompt SAM
+
+- #### checkpoint
+    
+    - Baidu Netdisk ：https://pan.baidu.com/s/1QUda9o15YWSiyOQ269w9bw （m3ji）
+    - Google Drive
+      
+    
+    ```
+    📦checkpoint
+    ┣ 📂Figure7
+    ┃ ┗ 📜prefix_large_train_80.pth
+    ```
+    
+- #### Command Line
    
-       ```
-       📦checkpoint
-        ┣ 📂Figure7
-        ┃ ┗ 📜finetune_large_train_80.pth
-       ```
+   ```
+   python ./notebooks/test_prefix.py -net PromptVit -mod sam_token_prompt -exp_name test_prefix_all64_token_large -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./checkpoint/Figure7/prefix_large_train_80.pth -b 1 -dataset CryoPPP -data_path ./dataset/large/test_7types -NUM_TOKENS 64 -deep_token_block_configuration 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+   ```
 
-- Command Line: 
+- #### Command Line Arguments
+
+  - -net ：net type [type: str]
+  - -mod ：mod type [type: str]
+  - -exp_name ：You can define your own name for this experiment [type: str]
+  - -sam_ckpt : Storage path for SAM's chekpoint [type: str]
+  - -b : batch size [type: int]
+  - -dataset : CryoPPP [type: str]
+  - -data_path : Training and Testing data storage path [type: str]
+  - -NUM_TOKENS : The number of prefix-tokens added [type: int]
+  - -deep_token_block_configuration : specify which block(31 block can use deep token, the first block use shallow token in default source code) add deep token :0: without deep token. 1: add deep token. [type: list]
+  - -weights : the weights file you want to test [type: str]
+
+### Encoder-Prompt SAM
+
+- #### checkpoint
+    
+    - Baidu Netdisk https:xxx
+   - Google Drive  https:xxx
+      
+    
+    ```
+    📦checkpoint
+     ┣ 📂Figure7
+     ┃ ┗ 📜finetune_large_train_80.pth
+    ```
+    
+- #### Command Line
+   
    ```
     python ./notebooks/test_encoder.py -net sam -mod sam_adpt -exp_name test_encoder_large -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./checkpoint/FIgure7/encoder_large_train_80.pth -b 1 -dataset CryoPPP -data_path ./dataset/large/test_7types -image_encoder_configuration 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
    ```
