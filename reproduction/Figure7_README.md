@@ -17,6 +17,16 @@ You can visualize the segmentation results of the test dataset through the **'vi
 ### Command Line Arguments:
 (放入参数解释)
 
+### Output presentation
+```
+    => resuming from xxx.pth
+    => loaded checkpoint xxx.pth (epoch x)
+    [Your parameter settings]
+    test data length: xx xx
+    Validation round:   x%|      | 0/50   ['figure name']  iou: xxx  dice: xxx
+    2023-11-08 10:48:56,154 - Total score: xxx, IOU: xxx, DICE: xxx || @ epoch x.
+```
+
 ### dataset:  large
   - Access 1 : Baidu Netdisk https:xxx
   - Access 2 : Google Drive  https:xxx
