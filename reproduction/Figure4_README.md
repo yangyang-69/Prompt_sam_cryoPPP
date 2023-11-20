@@ -109,9 +109,9 @@ You can visualize the segmentation results of the test dataset through the **'vi
      ┃ ┃ ┗ 📜head_prompt_10028_250.pth
     ```
    
-- Command Line: （修改一下）
+- Command Line:
    ```
-    python ./notebooks/test_head.py
+   python ./notebooks/test_head.py -data_path ./dataset/10028 -data_name 10028 -exp_name test_head_10028 -ckpt ./checkpoint/Fgiure4/head/head_prompt_10028_5.pth
    ```
 
 ## Prefix-Prompt SAM

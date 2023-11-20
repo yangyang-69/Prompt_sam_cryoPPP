@@ -88,9 +88,9 @@ You can visualize the segmentation results of the test dataset through the **'vi
      ┃ ┗ 📜head_prompt_large_train_80.pth
     ```
   
-- Command Line: （修改一下）
+- Command Line: 
    ```
-    python ./notebooks/head_prompt.py 
+   python ./notebooks/test_head.py -data_path ./dataset/large -data_name 10028 -exp_name test_head_large -ckpt ./checkpoint/Fgiure7/head/head_prompt_large_train_80.pth
    ```
 ## Prefix-Prompt SAM
 
