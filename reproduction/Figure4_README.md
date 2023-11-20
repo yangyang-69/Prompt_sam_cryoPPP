@@ -11,7 +11,10 @@ For reproduction, please download the sample dataset and the corresponding check
 By running the sample command line, you can get the **IOU and dice** of each test image and the **average of IOU and dice** of all images.
 You can visualize the segmentation results of the test dataset through the **'vis_image'** function.
 
-**dataset**:  10028, 10947, 10059
+### Command Line Arguments:
+(放入参数解释)
+
+### dataset:  10028, 10947, 10059
   - Access 1 : Baidu Netdisk https:xxx
   - Access 2 : Google Drive  https:xxx
   
@@ -47,9 +50,6 @@ You can visualize the segmentation results of the test dataset through the **'vi
        ┃ ┃ ┗ ...
       # 10028, 10947 and 10059 have the same structure
       ```
-
-### Command Line Arguments:
-(放入参数解释)
 
 ## Finetuning SAM
 
