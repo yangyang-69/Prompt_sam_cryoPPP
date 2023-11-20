@@ -9,8 +9,17 @@ Topaz.
 
 <img src="../image/figure8.png" style="zoom: 67%;" />
 
-- **dataset**:  large
-  
+## Guideline
+For reproduction, please download the sample dataset and the corresponding checkpoints, and modify their paths in the given command line example.
+By running the sample command line, you can get the **IOU and dice** of each test image and the **average of IOU and dice** of all images.
+You can visualize the segmentation results of the test dataset through the **'vis_image'** function.
+
+### Command Line Arguments:
+(放入参数解释)
+
+### dataset:  large
+  - Access 1 : Baidu Netdisk https:xxx
+  - Access 2 : Google Drive  https:xxx
     ```
     📦large
      ┣ 📂train
@@ -39,54 +48,68 @@ Topaz.
     ```
 
 ## Finetuning SAM
+- checkpoint:
+    - Access 1 : Baidu Netdisk https:xxx
+    - Access 2 : Google Drive  https:xxx
+   
+       ```
+       📦checkpoint
+        ┣ 📂Figure7
+        ┃ ┗ 📜finetune_large_train_80.pth
+       ```
 
+- Command Line: 
+   ```
+    python ./notebooks/test_finetune.py -net sam -mod sam_fine -exp_name test_finetune_large -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./checkpoint/FIgure7/finetune_large_train_80.pth -b 1 -dataset CryoPPP -data_path ./dataset/large/test_7types -image_encoder_configuration 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+   ```
 
 
 ## Head-Prompt SAM
 
-1. Train:  `python ./notebooks/train_head.py` and modify the dataset directory in the script by yourself
-
-2. Evaluation: The code can automatically evaluate the model on the test set during training.
-
-3. Test:
-   - checkpoint: 
+- checkpoint: 
      
-       - Access 1 : 链接：https://pan.baidu.com/s/1eyDr_qr0QwKOyIZG64YBdA  提取码：2cxn
-       - Access 2 : 
+    - Access 1 : Baidu Netdisk https://pan.baidu.com/s/1eyDr_qr0QwKOyIZG64YBdA  
+    - Access 2 : Google Drive  
        
-       ```
-       📦checkpoint
-        ┣ 📂Figure7
-        ┃ ┗ 📜head_prompt_large_train_80.pth
-       ```
-       
-   - Result Visualization: `python ./notebooks/test_head.py`.You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
-
+    ```
+    📦checkpoint
+     ┣ 📂Figure7
+     ┃ ┗ 📜head_prompt_large_train_80.pth
+    ```
+  
+- Command Line: （修改一下）
+   ```
+    python ./notebooks/head_prompt.py 
+   ```
 ## Prefix-Prompt SAM
 
-1. Train:  
-   ```
-   python ./notebooks/train_prefix.py -net PromptVit -mod sam_token_prompt -exp_name train_prefix_all64_token_large -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -b 1 -dataset CryoPPP -data_path ./dataset/large -NUM_TOKENS 64 -deep_token_block_configuration 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-   ```
-
-2. Evaluation: The code can automatically evaluate the model on the test set during training.
-
-3. Test:
-   ```
-    python ./notebooks/test_prefix.py -net PromptVit -mod sam_token_prompt -exp_name test_prefix_all64_token_10028_5 -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./Checkpoint/Figure7/prefix_large_train_80.pth -b 1 -dataset CryoPPP -data_path ./dataset/large -NUM_TOKENS 64 -deep_token_block_configuration 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-   ```
-   - checkpoint: 
-     
-       - Access 1 : 链接：https://pan.baidu.com/s/11SZHYOQKQmC4prY2HgIrHw  提取码：ne4s
-       - Access 2 : 
+- checkpoint: 
+    - Access 1 : Baidu Netdisk https://pan.baidu.com/s/11SZHYOQKQmC4prY2HgIrHw
+    - Access 2 : Google Drive
        
+      ```
+      📦checkpoint
+       ┣ 📂Figure7
+       ┃ ┗ 📜prefix_large_train_80.pth
+      ```
+
+- Command Line: 
+   ```
+    python ./notebooks/test_prefix.py -net PromptVit -mod sam_token_prompt -exp_name test_prefix_all64_token_large -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./checkpoint/Figure7/prefix_large_train_80.pth -b 1 -dataset CryoPPP -data_path ./dataset/large/test_7types -NUM_TOKENS 64 -deep_token_block_configuration 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+   ```
+
+## Encoder-Prompt SAM
+- checkpoint:
+    - Access 1 : Baidu Netdisk https:xxx
+    - Access 2 : Google Drive  https:xxx
+   
        ```
        📦checkpoint
         ┣ 📂Figure7
-        ┃ ┗ 📜prefix_large_train_80.pth
+        ┃ ┗ 📜finetune_large_train_80.pth
        ```
-       
-   - Result Visualization: You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
 
-
-## Encoder-Prompt SAM
+- Command Line: 
+   ```
+    python ./notebooks/test_encoder.py -net sam -mod sam_adpt -exp_name test_encoder_large -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./checkpoint/FIgure7/encoder_large_train_80.pth -b 1 -dataset CryoPPP -data_path ./dataset/large/test_7types -image_encoder_configuration 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+   ```

@@ -127,4 +127,4 @@ You can visualize the segmentation results of the test dataset through the **'vi
 
 - Command Line: 
    ```
-    python ./notebooks/test_encoder.py -net sam -mod sam_adpt -exp_name test_encoder_10028 -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./checkpoint/FIgure6/encoder/encoder_10028.pth -b 1 -dataset CryoPPP -data_path ./dataset/1024/10028 -image_encoder_configuration 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    python ./notebooks/test_encoder.py -net sam -mod sam_adpt -exp_name test_encoder_10028 -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./checkpoint/FIgure6/encoder/encoder_10028.pth -b 1 -dataset CryoPPP -data_path ./dataset/1024/10028 -image_encoder_configuration 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
