@@ -24,49 +24,109 @@ We use SAM’s automatic mask generator generated masks for a sample protein typ
 python ./notebooks/test_ori_sam.py -net sam -exp_name test_original_on_10028 -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -data_path ./dataset/10028_all
 ```
 
+- #### Command Line Arguments
+
+  - -net ：net type [type: str]
+  - -exp_name ：You can define your own name for this experiment [type: str]
+  - -sam_ckpt : Storage path for SAM's chekpoint [type: str]
+  - -data_path : Training  and Testing data storage path [type: str]
+
+- #### Test Result Output Format
+
+  ```
+  Total score:xxx, IOU:xxx, DICE:xxx
+  ```
+
+  - Total score denotes the average loss of the test set
+  - iou denotes the mean value of iou on the test set
+  - dice denotes the mean value of dice on the test set
+
 ### Finetuning SAM
 
-1. Train:  `python ./notebooks/train_finetune.py`
-2. Evaluation: The code can automatically evaluate the model on the test set during training.
-3. Test and Result Visualization: `python ./notebooks/test_finetune.py`.You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
+
 
 ### Head-Prompt SAM
 
-1. Train:  
+- #### Train 
 
-   ```
-   python ./notebooks/train_head.py --data_path ./dataset/10028_split/5 -data_name 10028 -exp_name few_shot_5 -save_path ./model_checkpoint/head
-   ```
+  ```
+  python ./notebooks/train_head.py -data_path ./dataset/10028_split/5 -data_name 10028 -exp_name few_shot_5 -save_path ./model_checkpoint/head
+  ```
 
-2. Test and Result Visualization:
+- #### Test and Result Visualization
 
-   ```
-   python ./notebooks/test_head.py --data_path ./dataset/10028_split -data_name 10028 -exp_name few_shot_5 -ckpt ./model_checkpoint/head/10028_5.pth
-   ```
+  ```
+  python ./notebooks/test_head.py -data_path ./dataset/10028_split -data_name 10028 -exp_name few_shot_5 -ckpt ./model_checkpoint/head/10028_5.pth
+  ```
 
-   You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
+​	You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
 
+- #### Command Line Arguments
+
+  - -data_path ： Training  and Testing data storage path [type: str]
+  - -data_name :  Name of the dataset involved in the training [type: str]
+  - -exp_name :  You can define your own name for this experiment [type: str]
+  - -save_path :  Training result storage path (e.g. checkpoint) [type: str]
+  - -ckpt : The checkpoints you saved during training and their paths [type: str]
+
+- #### Test Result Output Format
+
+  ```
+  Total score:xxx, IOU:xxx, DICE:xxx
+  ```
+
+  - Total score denotes the average loss of the test set
+  - iou denotes the mean value of iou on the test set
+  - dice denotes the mean value of dice on the test set
 
 ### Prefix-Prompt SAM
 
-1. Train: 
+- #### Train
 
-   ```
-   python ./notebooks/train_prefix.py -net PromptVit -mod sam_token_prompt -exp_name train_prefix_all64_token_10028_5 -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -b 1 -dataset CryoPPP -data_path ./dataset/10028_split/5 -NUM_TOKENS 64 -deep_token_block_configuration 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-   ```
+  ```
+  python ./notebooks/train_prefix.py -net PromptVit -mod sam_token_prompt -exp_name train_prefix_all64_token_10028_5 -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -b 1 -dataset CryoPPP -data_path ./dataset/10028_split/5 -NUM_TOKENS 64 -deep_token_block_configuration 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+  ```
 
-3. Test and Result Visualization: 
+- #### Test and Result Visualization: 
 
-   ```
-    python ./notebooks/test_prefix.py -net PromptVit -mod sam_token_prompt -exp_name test_prefix_all64_token_10028_5 -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./model_checkpoint/prefix/10028_5.pth -b 1 -dataset CryoPPP -data_path ./dataset/10028_split -NUM_TOKENS 64 -deep_token_block_configuration 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-   ```
+  ```
+   python ./notebooks/test_prefix.py -net PromptVit -mod sam_token_prompt -exp_name test_prefix_all64_token_10028_5 -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./model_checkpoint/prefix/10028_5.pth -b 1 -dataset CryoPPP -data_path ./dataset/10028_split -NUM_TOKENS 64 -deep_token_block_configuration 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+  ```
 
-   You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
+​	You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
+
+- #### Command Line Arguments
+
+  - -net ：net type [type: str]
+  - -mod ：mod type [type: str]
+  - -exp_name ：You can define your own name for this experiment [type: str]
+  - -sam_ckpt : Storage path for SAM's chekpoint [type: str]
+  - -b : batch size [type: int]
+  - -dataset : CryoPPP [type: str]
+  - -data_path : Training  and Testing data storage path [type: str]
+  - -NUM_TOKENS : The number of prefix-tokens added [type: int]
+  - -deep_token_block_configuration : specify which block(31 block can use deep token, the first block use shallow token in default source code) add deep token :0: without deep token. 1: add deep token. [type: list]
+  - -weights : the weights file you want to test [type: str]
+
+- #### Test Result Output Format
+
+  ```
+  Total score:xxx, IOU:xxx, DICE:xxx
+  ```
+
+  - Total score denotes the average loss of the test set
+  - iou denotes the mean value of iou on the test set
+  - dice denotes the mean value of dice on the test set
 
 ### Encoder-Prompt SAM
 
-1. Train:  `python ./notebooks/train_encoder.py`
-3. Test and Result Visualization: `python ./notebooks/test_encoder.py`.You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
+
+
+### Bulid With
+
+- [opencv](https://opencv.org/) - The image processing library used
+
+- [pytorch](https://pytorch.org/) - The deep learning backend used
 
 ## References
 * Dhakal, Ashwin, et al. "A large expert-curated cryo-EM image dataset for machine learning protein particle picking." Scientific Data 10.1 (2023): 392.
