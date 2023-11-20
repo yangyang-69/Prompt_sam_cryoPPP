@@ -14,20 +14,21 @@ For reproduction, please download the sample dataset and the corresponding check
 By running the sample command line, you can get the **IOU and dice** of each test image and the **average of IOU and dice** of all images.
 You can visualize the segmentation results of the test dataset through the **'vis_image'** function.
 
-### Command Line Arguments:
+
+- **Command Line Arguments**
 (放入参数解释)
 
-### Output presentation
-```
-    => resuming from xxx.pth
-    => loaded checkpoint xxx.pth (epoch x)
-    [Your parameter settings]
-    test data length: xx xx
-    Validation round:   x%|      | 0/50   ['figure name']  iou: xxx  dice: xxx
-    2023-11-08 10:48:56,154 - Total score: xxx, IOU: xxx, DICE: xxx || @ epoch x.
-```
+- **Output presentation**
+  ```
+      => resuming from xxx.pth
+      => loaded checkpoint xxx.pth (epoch x)
+      [Your parameter settings]
+      test data length: xx xx
+      Validation round:   x%|      | 0/50   ['figure name']  iou: xxx  dice: xxx
+      2023-11-08 10:48:56,154 - Total score: xxx, IOU: xxx, DICE: xxx || @ epoch x.
+  ```
 
-### dataset:  large
+- **dataset:  large**
   - Access 1 : Baidu Netdisk https:xxx
   - Access 2 : Google Drive  https:xxx
     ```
