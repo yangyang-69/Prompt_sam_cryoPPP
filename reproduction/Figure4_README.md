@@ -147,16 +147,16 @@ You can visualize the segmentation results of the test dataset through the **'vi
 
 - #### Command Line Arguments
 
-  - -net ：net type [type: str]
+  - -net ：net typ [type: str]
   - -mod ：mod type [type: str]
   - -exp_name ：You can define your own name for this experiment [type: str]
   - -sam_ckpt : Storage path for SAM's chekpoint [type: str]
-  - -b : batch size [type: int]
-  - -dataset : CryoPPP [type: str]
-  - -data_path : Training and Testing data storage path [type: str]
-  - -NUM_TOKENS : The number of prefix-tokens added [type: int]
-  - -deep_token_block_configuration : specify which block(31 block can use deep token, the first block use shallow token in default source code) add deep token :0: without deep token. 1: add deep token. [type: list]
+  - -data_path : Training  and Testing data storage path [type: str]
   - -weights : the weights file you want to test [type: str]
+  - -b : batch size [optional, type: int, default: 1]
+  - -dataset : CryoPPP [optional, type: str,default:CryoPPP]
+  - -NUM_TOKENS : The number of prefix-tokens added [optional, type: int, default: 64]
+  - -deep_token_block_configuration : specify which block(31 block can use deep token, the first block use shallow token in default source code) add deep token :0: without deep token. 1: add deep token. [optional, type: list, default: [1,1,1,1, 1,1,1,1,1, 1,1,1,1,1, 1,1,1,1,1, 1,1,1,1,1, 1,1,1,1,1, 1,1]]
 
 ### Encoder-Prompt SAM
 
