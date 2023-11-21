@@ -76,6 +76,7 @@ def parse_args():
     parser.add_argument(
     '-data_path',
     type=str,
+    required=True,
     default='../dataset',
     help='The path of segmentation data')
     # '../dataset/RIGA/DiscRegion'

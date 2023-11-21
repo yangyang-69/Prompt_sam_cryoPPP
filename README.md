@@ -12,7 +12,7 @@ Download **`model checkpoint`: [ViT-H SAM model.](https://dl.fbaipublicfiles.com
 
 1. `git clone https://github.com/yangyang-69/Prompt_sam_cryoPPP.git`
 2. Enter the Prompt_sam_cryoPPP folder `cd Prompt_sam_cryoPPP-main` and run `conda env create -f environment.yaml`
-3. activate the conda environment `conda activate sam`
+3. Activate the conda environment `conda activate sam`
 
 ## Get Started
 
@@ -59,7 +59,7 @@ python ./notebooks/test_ori_sam.py -net sam -exp_name test_original_on_10028 -sa
   python ./notebooks/test_head.py -data_path ./dataset/10028_split -data_name 10028 -exp_name few_shot_5 -ckpt ./model_checkpoint/head/10028_5.pth
   ```
 
-​	You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
+	You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
 
 - #### Command Line Arguments
 
@@ -93,20 +93,20 @@ python ./notebooks/test_ori_sam.py -net sam -exp_name test_original_on_10028 -sa
    python ./notebooks/test_prefix.py -net PromptVit -mod sam_token_prompt -exp_name test_prefix_all64_token_10028_5 -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./model_checkpoint/prefix/10028_5.pth -b 1 -dataset CryoPPP -data_path ./dataset/10028_split -NUM_TOKENS 64 -deep_token_block_configuration 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
   ```
 
-​	You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
+    You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
 
 - #### Command Line Arguments
 
-  - -net ：net type [type: str]
+  - -net ：net typ [type: str]
   - -mod ：mod type [type: str]
   - -exp_name ：You can define your own name for this experiment [type: str]
   - -sam_ckpt : Storage path for SAM's chekpoint [type: str]
-  - -b : batch size [type: int]
-  - -dataset : CryoPPP [type: str]
   - -data_path : Training  and Testing data storage path [type: str]
-  - -NUM_TOKENS : The number of prefix-tokens added [type: int]
-  - -deep_token_block_configuration : specify which block(31 block can use deep token, the first block use shallow token in default source code) add deep token :0: without deep token. 1: add deep token. [type: list]
   - -weights : the weights file you want to test [type: str]
+  - -b : batch size [optional, type: int, default: 1]
+  - -dataset : CryoPPP [optional, type: str,default:CryoPPP]
+  - -NUM_TOKENS : The number of prefix-tokens added [optional, type: int, default: 64]
+  - -deep_token_block_configuration : specify which block(31 block can use deep token, the first block use shallow token in default source code) add deep token :0: without deep token. 1: add deep token. [optional, type: list, default: [1,1,1,1, 1,1,1,1,1, 1,1,1,1,1, 1,1,1,1,1, 1,1,1,1,1, 1,1,1,1,1, 1,1]]
 
 - #### Test Result Output Format
 
