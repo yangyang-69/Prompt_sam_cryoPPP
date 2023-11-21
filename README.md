@@ -38,12 +38,46 @@ python ./notebooks/test_ori_sam.py -net sam -exp_name test_original_on_10028 -sa
   ```
 
   - Total score denotes the average loss of the test set
-  - iou denotes the mean value of iou on the test set
-  - dice denotes the mean value of dice on the test set
+  - IOU denotes the mean value of IOU on the test set
+  - DICE denotes the mean value of DICE on the test set
 
 ### Finetuning SAM
 
+- #### Train
 
+  ```
+python ./notebooks/train_fine_tuning.py -net 'sam_fineTuning' -mod 'sam_fine' -exp_name 'train_fine_10028_5' -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -dataset CryoPPP -b 1 -data_path ./dataset/10028_split/5 -fine_tuning_configuration 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+  ```
+
+- #### Test and Result Visualization: 
+
+  ```
+python ./notebooks/test_fine_tuning.py -net sam_fineTuning -mod sam_fine -exp_name test_fine_10028_5 -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./model_checkpoint/fine/10028_5.pth -b 1 -dataset CryoPPP -data_path ./dataset/10028_split/5 -fine_tuning_configuration 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+  ```
+
+    You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
+
+- #### Command Line Arguments
+
+  - -net: net type [type: str]
+  - -mod: mod type [type: str]
+  - -exp_name: You can define your own name for this experiment [type: str]
+  - -sam_ckpt: Storage path for SAM's checkpoint [type: str]
+  - -data_path: Training  and Testing data storage path [type: str]
+  - -weights: The weights file you want to test [type: str]
+  - -b: Batch size [optional, type: int, default: 1]
+  - -dataset: CryoPPP [optional, type: str, default: CryoPPP]
+  - -fine_tuning_configuration: Specify which blocks need to be frozen 1: doesn't freeze the block, 0: freeze the block [optional, type: list, default:[0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0]]
+
+- #### Test Result Output Format
+
+  ```
+  Total score:xxx, IOU:xxx, DICE:xxx
+  ```
+
+  - Total score denotes the average loss of the test set
+  - IOU denotes the mean value of IOU on the test set
+  - DICE denotes the mean value of DICE on the test set
 
 ### Head-Prompt SAM
 
@@ -76,8 +110,8 @@ python ./notebooks/test_ori_sam.py -net sam -exp_name test_original_on_10028 -sa
   ```
 
   - Total score denotes the average loss of the test set
-  - iou denotes the mean value of iou on the test set
-  - dice denotes the mean value of dice on the test set
+  - IOU denotes the mean value of IOU on the test set
+  - DICE denotes the mean value of DICE on the test set
 
 ### Prefix-Prompt SAM
 
@@ -115,8 +149,8 @@ python ./notebooks/test_ori_sam.py -net sam -exp_name test_original_on_10028 -sa
   ```
 
   - Total score denotes the average loss of the test set
-  - iou denotes the mean value of iou on the test set
-  - dice denotes the mean value of dice on the test set
+  - IOU denotes the mean value of IOU on the test set
+  - DICE denotes the mean value of DICE on the test set
 
 ### Encoder-Prompt SAM
 
@@ -153,8 +187,8 @@ python ./notebooks/test_ori_sam.py -net sam -exp_name test_original_on_10028 -sa
   ```
 
   - Total score denotes the average loss of the test set
-  - iou denotes the mean value of iou on the test set
-  - dice denotes the mean value of dice on the test set
+  - IOU denotes the mean value of IOU on the test set
+  - DICE denotes the mean value of DICE on the test set
 
 ### Bulid With
 
