@@ -136,16 +136,15 @@ python ./notebooks/test_ori_sam.py -net sam -exp_name test_original_on_10028 -sa
 
 - #### Command Line Arguments
 
-  - -net ：net typ [type: str]
-  - -mod ：mod type [type: str]
-  - -exp_name ：You can define your own name for this experiment [type: str]
-  - -sam_ckpt : Storage path for SAM's checkpoint [type: str]
-  - -data_path : Training  and Testing data storage path [type: str]
-  - -weights : the weights file you want to test [type: str]
-  - -b : batch size [optional, type: int, default: 1]
-  - -dataset : CryoPPP [optional, type: str, default: CryoPPP]
-  - -prompt_approach : the prompt approach: random_click, box or points_grids [optional, type: str, default:points_grids]
-  - -image_encoder_configuration : image encoder configuration: 0: original sam. 1: space adapter. 2:MLP adapter. 3: space adapter + MLP adapter. [optional, type: list, default:[3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3]]
+  - -net: net type [type: str]
+  - -mod: mod type [type: str]
+  - -exp_name: You can define your own name for this experiment [type: str]
+  - -sam_ckpt: Storage path for SAM's checkpoint [type: str]
+  - -data_path: Training  and Testing data storage path [type: str]
+  - -weights: The weights file you want to test [type: str]
+  - -b: Batch size [optional, type: int, default: 1]
+  - -dataset: CryoPPP [optional, type: str, default: CryoPPP]
+  - -image_encoder_configuration: Image encoder configuration: 0: original sam. 1: space adapter. 2:MLP adapter. 3: space adapter + MLP adapter. [optional, type: list, default:[3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3]]
 
 - #### Test Result Output Format
 
