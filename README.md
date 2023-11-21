@@ -120,7 +120,42 @@ python ./notebooks/test_ori_sam.py -net sam -exp_name test_original_on_10028 -sa
 
 ### Encoder-Prompt SAM
 
+- #### Train
 
+  ```
+  python ./notebooks/train_encoder.py -net 'sam' -mod 'sam_adpt' -exp_name train_encoder_last_10028_5 -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -b 1 -dataset CryoPPP -data_path ./dataset/10028_split/5 -image_encoder_configuration 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+  ```
+
+- #### Test and Result Visualization: 
+
+  ```
+   python ./notebooks/test_encoder.py -net 'sam' -mod 'sam_adpt' -exp_name test_encoder_last_10028_5 -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./model_checkpoint/encoder/10028_5.pth -b 1 -dataset CryoPPP -data_path ./dataset/10028_split/5 -image_encoder_configuration 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+  ```
+
+    You can use the 'vis_image' function to visualize the segmentation results of the test dataset.
+
+- #### Command Line Arguments
+
+  - -net ：net typ [type: str]
+  - -mod ：mod type [type: str]
+  - -exp_name ：You can define your own name for this experiment [type: str]
+  - -sam_ckpt : Storage path for SAM's checkpoint [type: str]
+  - -data_path : Training  and Testing data storage path [type: str]
+  - -weights : the weights file you want to test [type: str]
+  - -b : batch size [optional, type: int, default: 1]
+  - -dataset : CryoPPP [optional, type: str, default: CryoPPP]
+  - -prompt_approach : the prompt approach: random_click, box or points_grids [optional, type: str, default:points_grids]
+  - -image_encoder_configuration : image encoder configuration: 0: original sam. 1: space adapter. 2:MLP adapter. 3: space adapter + MLP adapter. [optional, type: list, default:[3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3]]
+
+- #### Test Result Output Format
+
+  ```
+  Total score:xxx, IOU:xxx, DICE:xxx
+  ```
+
+  - Total score denotes the average loss of the test set
+  - iou denotes the mean value of iou on the test set
+  - dice denotes the mean value of dice on the test set
 
 ### Bulid With
 
