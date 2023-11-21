@@ -53,30 +53,41 @@ You can visualize the segmentation results of the test dataset through the **'vi
 
 ### Finetuning SAM
 - #### checkpoint
-    
-    - Baidu Netdisk https:xxx
-   - Google Drive  https:xxx
-      
-    
+  
+    - Baidu Netdisk  https://pan.baidu.com/s/1X4U3Vg9d-O8MBwv1cWySLw  （gqcy）
+   - OneDrive
+     
+   
     ```
     📦checkpoint
      ┣ 📂Figure7
      ┃ ┗ 📜finetune_large_train_80.pth
     ```
-    
-- #### Command Line
    
+- #### Command Line
+  
    ```
-    python ./notebooks/test_finetune.py -net sam -mod sam_fine -exp_name test_finetune_large -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./checkpoint/FIgure7/finetune_large_train_80.pth -b 1 -dataset CryoPPP -data_path ./dataset/large/test_7types -image_encoder_configuration 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+   python ./notebooks/test_finetuning.py -net sam_fineTuning -mod sam_fine -exp_name test_fine_large -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./checkpoint/finetune/finetune_large_train_80.pth -b 1 -dataset CryoPPP -data_path ./dataset/10028_split/5 -fine_tuning_configuration 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
    ```
 
+- #### Command Line Arguments
+
+  - -net: net type [type: str]
+  - -mod: mod type [type: str]
+  - -exp_name: You can define your own name for this experiment [type: str]
+  - -sam_ckpt: Storage path for SAM's checkpoint [type: str]
+  - -data_path: Training and Testing data storage path [type: str]
+  - -weights: The weights file you want to test [type: str]
+  - -b: Batch size [optional, type: int, default: 1]
+  - -dataset: CryoPPP [optional, type: str, default: CryoPPP]
+  - -fine_tuning_configuration: Specify which blocks need to be frozen 1: doesn't freeze the block, 0: freeze the block [optional, type: list, default:[0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0]]
 
 ### Head-Prompt SAM
 
 - #### checkpoint
   
-    - Baidu Netdisk：https://pan.baidu.com/s/1u8DyhDpzBDrKzsb8gwMD8Q （flaq）
-    - Google Drive  
+    - Baidu Netdisk：https://pan.baidu.com/s/1X4U3Vg9d-O8MBwv1cWySLw  （gqcy）
+    - OneDrive  
       
     ```
     📦checkpoint
@@ -85,7 +96,7 @@ You can visualize the segmentation results of the test dataset through the **'vi
     ```
   
 - #### Command Line
-   
+  
    ```
    python ./notebooks/test_head.py -data_path ./dataset/large -data_name 10028 -exp_name test_head_large -ckpt ./checkpoint/Fgiure7/head/head_prompt_large_train_80.pth
    ```
@@ -100,9 +111,9 @@ You can visualize the segmentation results of the test dataset through the **'vi
 ### Prefix-Prompt SAM
 
 - #### checkpoint
-    
-    - Baidu Netdisk ：https://pan.baidu.com/s/1QUda9o15YWSiyOQ269w9bw （m3ji）
-    - Google Drive
+  
+    - Baidu Netdisk ：https://pan.baidu.com/s/1X4U3Vg9d-O8MBwv1cWySLw  （gqcy）
+    - OneDrive
       
     
     ```
@@ -112,7 +123,7 @@ You can visualize the segmentation results of the test dataset through the **'vi
     ```
     
 - #### Command Line
-   
+  
    ```
    python ./notebooks/test_prefix.py -net PromptVit -mod sam_token_prompt -exp_name test_prefix_all64_token_large -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./checkpoint/Figure7/prefix_large_train_80.pth -b 1 -dataset CryoPPP -data_path ./dataset/large/test_7types -NUM_TOKENS 64 -deep_token_block_configuration 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
    ```
@@ -133,19 +144,31 @@ You can visualize the segmentation results of the test dataset through the **'vi
 ### Encoder-Prompt SAM
 
 - #### checkpoint
-    
-    - Baidu Netdisk https:xxx
-   - Google Drive  https:xxx
-      
-    
+  
+    - Baidu Netdisk :  https://pan.baidu.com/s/1X4U3Vg9d-O8MBwv1cWySLw  （gqcy）
+   - OneDrive
+     
+   
     ```
     📦checkpoint
      ┣ 📂Figure7
-     ┃ ┗ 📜finetune_large_train_80.pth
+     ┃ ┗ 📜encoder_large_train_80.pth
     ```
-    
-- #### Command Line
    
+- #### Command Line
+  
    ```
-    python ./notebooks/test_encoder.py -net sam -mod sam_adpt -exp_name test_encoder_large -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./checkpoint/FIgure7/encoder_large_train_80.pth -b 1 -dataset CryoPPP -data_path ./dataset/large/test_7types -image_encoder_configuration 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+    python ./notebooks/test_encoder.py -net 'sam' -mod 'sam_adpt' -exp_name test_encoder_large -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./checkpoint/Figure7/encoder_large_train_80.pth -b 1 -dataset CryoPPP -data_path ./dataset/large/5 -image_encoder_configuration 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
    ```
+
+- #### Command Line Arguments
+
+  - -net: net type [type: str]
+  - -mod: mod type [type: str]
+  - -exp_name: You can define your own name for this experiment [type: str]
+  - -sam_ckpt: Storage path for SAM's checkpoint [type: str]
+  - -data_path: Training and Testing data storage path [type: str]
+  - -weights: The weights file you want to test [type: str]
+  - -b: Batch size [optional, type: int, default: 1]
+  - -dataset: CryoPPP [optional, type: str, default: CryoPPP]
+  - -image_encoder_configuration: Image encoder configuration: 0: original sam. 1: space adapter. 2:MLP adapter. 3: space adapter + MLP adapter. [optional, type: list, default:[3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3]]

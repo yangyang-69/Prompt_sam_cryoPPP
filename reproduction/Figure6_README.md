@@ -57,31 +57,43 @@ You can visualize the segmentation results of the test dataset through the **'vi
 
 - #### checkpoint
   
-    - Baidu Netdisk https:xxx
-   - Google Drive  https:xxx
+    - Baidu Netdisk  https://pan.baidu.com/s/1-vtvVXn1JtrQwq-MsunXYw   (d4u9)
+   - OneDrive
      
-       ```
-       📦checkpoint
-        ┣ 📂Figure6
-        ┃ ┣ 📂head
-        ┃ ┃ ┗ 📜finetune_10028_5.pth
-        ┃ ┃ ┗ 📜finetune_10059_5.pth
-        ┃ ┃ ┗ 📜finetune_10947_5.pth
-       ```
+   
+   ```
+   📦checkpoint
+    ┣ 📂Figure6
+    ┃ ┣ 📂head
+    ┃ ┃ ┗ 📜finetune_10028_5.pth
+    ┃ ┃ ┗ 📜finetune_10059_5.pth
+    ┃ ┃ ┗ 📜finetune_10947_5.pth
+   ```
    
 - #### Command Line
   
    ```
-    python ./notebooks/test_finetune.py -net sam -mod sam_fine -exp_name test_finetune_10028 -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./checkpoint/FIgure6/finetune/finetune_10028.pth -b 1 -dataset CryoPPP -data_path ./dataset/1024/10028 -image_encoder_configuration 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+   python ./notebooks/test_finetuning.py -net sam_fineTuning -mod sam_fine -exp_name test_fine_10028_5 -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./checkpoint/finetune/finetune_10028_5.pth -b 1 -dataset CryoPPP -data_path ./dataset/10028_split/5 -fine_tuning_configuration 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
    ```
 
+- #### Command Line Arguments
+
+  - -net: net type [type: str]
+  - -mod: mod type [type: str]
+  - -exp_name: You can define your own name for this experiment [type: str]
+  - -sam_ckpt: Storage path for SAM's checkpoint [type: str]
+  - -data_path: Training and Testing data storage path [type: str]
+  - -weights: The weights file you want to test [type: str]
+  - -b: Batch size [optional, type: int, default: 1]
+  - -dataset: CryoPPP [optional, type: str, default: CryoPPP]
+  - -fine_tuning_configuration: Specify which blocks need to be frozen 1: doesn't freeze the block, 0: freeze the block [optional, type: list, default:[0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0]]
 
 ### Head-Prompt SAM
 
 - #### checkpoint
   
     - Baidu Netdisk https://pan.baidu.com/s/1FeGriwB9GkgKqgzA9_EJNQ (njcz)
-    - Google Drive  https:xxx
+    - OneDrive
 
     ```
     📦checkpoint
@@ -109,17 +121,18 @@ You can visualize the segmentation results of the test dataset through the **'vi
 
 - #### checkpoint
   
-    - Baidu Netdisk : https://pan.baidu.com/s/1kL62juXbRveVNhC-uvIejQ (zq92)
-    - Google Drive : https:xxx
-         ```
-         📦checkpoint
-          ┣ 📂Figure6
-          ┃ ┣ 📂prefix
-          ┃ ┃ ┗ 📜prefix_10028_5.pth
-          ┃ ┃ ┗ 📜prefix_10059_5.pth
-          ┃ ┃ ┗ 📜prefix_10947_5.pth
-         ```
-
+    - Baidu Netdisk : https://pan.baidu.com/s/1kL62juXbRveVNhC-uvIejQ   (zq92)
+    - OneDrive
+    
+    ```
+    📦checkpoint
+     ┣ 📂Figure6
+     ┃ ┣ 📂prefix
+     ┃ ┃ ┗ 📜prefix_10028_5.pth
+     ┃ ┃ ┗ 📜prefix_10059_5.pth
+     ┃ ┃ ┗ 📜prefix_10947_5.pth
+  ```
+  
 - #### Command Line
   
    ```
@@ -142,19 +155,31 @@ You can visualize the segmentation results of the test dataset through the **'vi
 
 - #### checkpoint
   
-    - Baidu Netdisk https:xxx
-   - Google Drive  https:xxx
-     
-       ```
-       📦checkpoint
-        ┣ 📂Figure6
-        ┃ ┣ 📂head
-        ┃ ┃ ┗ 📜encoder_10028_5.pth
-        ┃ ┃ ┗ 📜encoder_10059_5.pth
-        ┃ ┃ ┗ 📜encoder_10947_5.pth
-       ```
+    - Baidu Netdisk  https://pan.baidu.com/s/1guRGeuekxltPAWO29Tkirw   (djgg)
+   - OneDrive
+   
+   ```
+   📦checkpoint
+    ┣ 📂Figure6
+    ┃ ┣ 📂head
+    ┃ ┃ ┗ 📜encoder_10028_5.pth
+    ┃ ┃ ┗ 📜encoder_10059_5.pth
+    ┃ ┃ ┗ 📜encoder_10947_5.pth
+   ```
    
 - #### Command Line
   
    ```
-    python ./notebooks/test_encoder.py -net sam -mod sam_adpt -exp_name test_encoder_10028 -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./checkpoint/FIgure6/encoder/encoder_10028.pth -b 1 -dataset CryoPPP -data_path ./dataset/1024/10028 -image_encoder_configuration 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+    python ./notebooks/test_encoder.py -net 'sam' -mod 'sam_adpt' -exp_name test_encoder_last_10028_5 -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./checkpoint/encoder/encoder_10028_5.pth -b 1 -dataset CryoPPP -data_path ./dataset/10028_split/5 -image_encoder_configuration 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+
+- #### Command Line Arguments
+
+  - -net: net type [type: str]
+  - -mod: mod type [type: str]
+  - -exp_name: You can define your own name for this experiment [type: str]
+  - -sam_ckpt: Storage path for SAM's checkpoint [type: str]
+  - -data_path: Training and Testing data storage path [type: str]
+  - -weights: The weights file you want to test [type: str]
+  - -b: Batch size [optional, type: int, default: 1]
+  - -dataset: CryoPPP [optional, type: str, default: CryoPPP]
+  - -image_encoder_configuration: Image encoder configuration: 0: original sam. 1: space adapter. 2:MLP adapter. 3: space adapter + MLP adapter. [optional, type: list, default:[3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3]]
