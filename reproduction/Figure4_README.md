@@ -61,7 +61,7 @@ You can visualize the segmentation results of the test dataset through the **'vi
 - #### checkpoint
   
     - Baidu Netdisk https://pan.baidu.com/s/1GjsKcyKQFqODxSqCfySYCA （3vn8）
-    - OneDrive: https://mailmissouri-my.sharepoint.com/:f:/g/personal/nemf4_umsystem_edu/En6KNJNrRiNEpS9db19X29cB1l2jkiYy2DSxv6QqRX5Bpg?e=flYuRF
+    - OneDrive: https://mailmissouri-my.sharepoint.com/:f:/g/personal/nemf4_umsystem_edu/En6KNJNrRiNEpS9db19X29cB1l2jkiYy2DSxv6QqRX5Bpg?e=XaEIEg
     
     ```
     📦checkpoint
