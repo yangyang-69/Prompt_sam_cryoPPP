@@ -22,8 +22,8 @@ You can visualize the segmentation results of the test dataset through the **'vi
 
 - ### **Dataset:  large**
 
-  - Baidu Netdisk ：https://pan.baidu.com/s/1uu14w11I2HlW_ZHIzuqLCw （jm1j）
-  - Google Drive  https:xxx
+  - Baidu Netdisk：https://pan.baidu.com/s/1uu14w11I2HlW_ZHIzuqLCw （jm1j）
+  - OneDrive: https://mailmissouri-my.sharepoint.com/:u:/g/personal/nemf4_umsystem_edu/EatxFZFYz7JJsPaC7BpxCa0BM0kgeEFp37gzsztRO3uryg?e=bZeJke
     ```
     📦large
      ┣ 📂train
@@ -55,7 +55,7 @@ You can visualize the segmentation results of the test dataset through the **'vi
 - #### checkpoint
   
     - Baidu Netdisk  https://pan.baidu.com/s/1X4U3Vg9d-O8MBwv1cWySLw  （gqcy）
-   - OneDrive
+   - OneDrive: https://mailmissouri-my.sharepoint.com/:f:/g/personal/nemf4_umsystem_edu/EvuiSLXCWfRChdzAEiN-6uQBrEpnoq3yBGuC5fM9_mnrFw?e=Vobvm7
      
    
     ```
@@ -87,7 +87,7 @@ You can visualize the segmentation results of the test dataset through the **'vi
 - #### checkpoint
   
     - Baidu Netdisk：https://pan.baidu.com/s/1X4U3Vg9d-O8MBwv1cWySLw  （gqcy）
-    - OneDrive  
+    - OneDrive: https://mailmissouri-my.sharepoint.com/:f:/g/personal/nemf4_umsystem_edu/EmNXVb4D7UxEuefkYEoVFJMB3_DIaLoaqzlz5lI-h-Fo9g?e=YMvZbk  
       
     ```
     📦checkpoint
@@ -113,7 +113,7 @@ You can visualize the segmentation results of the test dataset through the **'vi
 - #### checkpoint
   
     - Baidu Netdisk ：https://pan.baidu.com/s/1X4U3Vg9d-O8MBwv1cWySLw  （gqcy）
-    - OneDrive
+    - OneDrive: https://mailmissouri-my.sharepoint.com/:f:/g/personal/nemf4_umsystem_edu/EjwLWPLd9NBEmw6-h0uZeMUBYIgmH8c0k223kiXWVSVn9Q?e=8d6p5V
       
     
     ```
@@ -146,7 +146,7 @@ You can visualize the segmentation results of the test dataset through the **'vi
 - #### checkpoint
   
     - Baidu Netdisk :  https://pan.baidu.com/s/1X4U3Vg9d-O8MBwv1cWySLw  （gqcy）
-   - OneDrive
+   - OneDrive: https://mailmissouri-my.sharepoint.com/:f:/g/personal/nemf4_umsystem_edu/EkUYs6n9RSZFpwXudO0CWwgBjfWKSJzihWmDFd-2LyOINA?e=SZNuJZ
      
    
     ```
