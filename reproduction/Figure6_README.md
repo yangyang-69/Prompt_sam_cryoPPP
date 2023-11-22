@@ -58,7 +58,7 @@ You can visualize the segmentation results of the test dataset through the **'vi
 - #### checkpoint
   
     - Baidu Netdisk  https://pan.baidu.com/s/1-vtvVXn1JtrQwq-MsunXYw   (d4u9)
-   - OneDrive
+   - OneDrive: https://mailmissouri-my.sharepoint.com/:f:/g/personal/nemf4_umsystem_edu/EqnJ1KMD5JFBhz_66NG_zHYB_VfQRncfSiHu_yD-kQLL3w?e=cqNm37
      
    
    ```
@@ -93,7 +93,7 @@ You can visualize the segmentation results of the test dataset through the **'vi
 - #### checkpoint
   
     - Baidu Netdisk https://pan.baidu.com/s/1FeGriwB9GkgKqgzA9_EJNQ (njcz)
-    - OneDrive
+    - OneDrive: https://mailmissouri-my.sharepoint.com/:f:/g/personal/nemf4_umsystem_edu/EmfzAbGhvkBJp0bXbrePf-4BqoWNydPKa2KJPxpNHk0f4A?e=GM4HVm
 
     ```
     📦checkpoint
@@ -122,7 +122,7 @@ You can visualize the segmentation results of the test dataset through the **'vi
 - #### checkpoint
   
     - Baidu Netdisk : https://pan.baidu.com/s/1kL62juXbRveVNhC-uvIejQ   (zq92)
-    - OneDrive
+    - OneDrive: https://mailmissouri-my.sharepoint.com/:f:/g/personal/nemf4_umsystem_edu/ElUpJ_clONVNoJaiQvzkJDQBRX9Sjkk97O4uZk7M7FT_HQ?e=M4spZH
     
     ```
     📦checkpoint
@@ -151,12 +151,14 @@ You can visualize the segmentation results of the test dataset through the **'vi
   - -dataset : CryoPPP [optional, type: str,default:CryoPPP]
   - -NUM_TOKENS : The number of prefix-tokens added [optional, type: int, default: 64]
   - -deep_token_block_configuration : specify which block(31 block can use deep token, the first block use shallow token in default source code) add deep token :0: without deep token. 1: add deep token. [optional, type: list, default: [1,1,1,1, 1,1,1,1,1, 1,1,1,1,1, 1,1,1,1,1, 1,1,1,1,1, 1,1,1,1,1, 1,1]]
+
+    
 ### Encoder-Prompt SAM
 
 - #### checkpoint
   
-    - Baidu Netdisk  https://pan.baidu.com/s/1guRGeuekxltPAWO29Tkirw   (djgg)
-   - OneDrive
+    - Baidu Netdisk:  https://pan.baidu.com/s/1guRGeuekxltPAWO29Tkirw   (djgg)
+    - OneDrive: https://mailmissouri-my.sharepoint.com/:f:/g/personal/nemf4_umsystem_edu/ElpZyGNyicdAleyEFfcizg0BBu8oQi7mGUuhVYSsC_Libw?e=KbghKg
    
    ```
    📦checkpoint
@@ -183,3 +185,4 @@ You can visualize the segmentation results of the test dataset through the **'vi
   - -b: Batch size [optional, type: int, default: 1]
   - -dataset: CryoPPP [optional, type: str, default: CryoPPP]
   - -image_encoder_configuration: Image encoder configuration: 0: original sam. 1: space adapter. 2:MLP adapter. 3: space adapter + MLP adapter. [optional, type: list, default:[3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3]]
+    
