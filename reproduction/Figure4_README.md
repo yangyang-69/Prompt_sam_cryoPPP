@@ -61,7 +61,7 @@ You can visualize the segmentation results of the test dataset through the **'vi
 - #### checkpoint
   
     - Baidu Netdisk https://pan.baidu.com/s/1GjsKcyKQFqODxSqCfySYCA （3vn8）
-    - OneDrive: https://mailmissouri-my.sharepoint.com/:f:/g/personal/nemf4_umsystem_edu/Eme0HOt4yXRJgxEatko_P_oB6bOw7bi_C95fDfKQYAUnIQ?e=2rQHDt
+    - OneDrive: https://mailmissouri-my.sharepoint.com/:f:/g/personal/nemf4_umsystem_edu/En6KNJNrRiNEpS9db19X29cB1l2jkiYy2DSxv6QqRX5Bpg?e=flYuRF
     
     ```
     📦checkpoint
@@ -96,7 +96,7 @@ You can visualize the segmentation results of the test dataset through the **'vi
 - #### checkpoint
   
     - Baidu Netdisk： https://pan.baidu.com/s/1vbizYY8_XDQxMr5TjeJxjQ （r2g4）
-   - OneDrive: https://mailmissouri-my.sharepoint.com/:f:/g/personal/nemf4_umsystem_edu/Ej1l9RiM-81HuyRdufMYh6cBedn8n4uwxxc0oIKFRh6TxA?e=QaOiNS
+   - OneDrive: https://mailmissouri-my.sharepoint.com/:f:/g/personal/nemf4_umsystem_edu/EvSbM1YL1YZNuZMy6F8tlegBPnqxEMyAW5SjYrzxwym1Tw?e=c1eJax
      
     ```
     📦checkpoint
@@ -135,7 +135,7 @@ You can visualize the segmentation results of the test dataset through the **'vi
 
 - checkpoint:
     - Baidu Netdisk https://pan.baidu.com/s/1WtorfsG5CgQg0LHzwUxwJQ   (w8yn)
-    - OneDrive: https://mailmissouri-my.sharepoint.com/:f:/g/personal/nemf4_umsystem_edu/Enihd8In5HxBjhNXi1KCyRUBkScIs-T2G2z38Xc2G4cKww?e=nDU9zr
+    - OneDrive: https://mailmissouri-my.sharepoint.com/:f:/g/personal/nemf4_umsystem_edu/Er3dHvWhhEdDkE3D40tcB0QBhDgABUIqkcEp_MsRJU5wdA?e=Is4ozj
     
     ```
     📦checkpoint
