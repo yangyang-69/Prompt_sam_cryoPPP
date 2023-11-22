@@ -55,45 +55,6 @@ You can visualize the segmentation results of the test dataset through the **'vi
     # 10028, 10947 and 10059 have the same structure
     ```
 
-### Finetuning SAM
-
-- #### checkpoint
-  
-    - Baidu Netdisk https://pan.baidu.com/s/179hVXXdP6jEzjuzXYTT7Xw   (kimn)
-   - OneDrive  
-     
-    ```
-    📦checkpoint
-     ┣ 📂Figure4
-     ┃ ┣ 📂finetune
-     ┃ ┃ ┗ 📜finetune_10028_5.pth
-     ┃ ┃ ┗ 📜finetune_10028_10.pth
-     ┃ ┃ ┗ 📜finetune_10028_20.pth
-     ┃ ┃ ┗ 📜finetune_10028_30.pth
-     ┃ ┃ ┗ 📜finetune_10028_50.pth
-     ┃ ┃ ┗ 📜finetune_10028_100.pth
-     ┃ ┃ ┗ 📜finetune_10028_150.pth
-     ┃ ┃ ┗ 📜finetune_10028_200.pth
-     ┃ ┃ ┗ 📜finetune_10028_250.pth
-    ```
-   
-- #### Command Line
-  
-   ```
-   python ./notebooks/test_finetuning.py -net sam_fineTuning -mod sam_fine -exp_name test_fine_10028_5 -sam_ckpt ./model_checkpoint/sam_vit_h_4b8939.pth -weights ./checkpoint/finetune/finetune_10028_5.pth -b 1 -dataset CryoPPP -data_path ./dataset/10028_split/5 -fine_tuning_configuration 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-   ```
-
-- #### Command Line Arguments
-
-  - -net: net type [type: str]
-  - -mod: mod type [type: str]
-  - -exp_name: You can define your own name for this experiment [type: str]
-  - -sam_ckpt: Storage path for SAM's checkpoint [type: str]
-  - -data_path: Training and Testing data storage path [type: str]
-  - -weights: The weights file you want to test [type: str]
-  - -b: Batch size [optional, type: int, default: 1]
-  - -dataset: CryoPPP [optional, type: str, default: CryoPPP]
-  - -fine_tuning_configuration: Specify which blocks need to be frozen 1: doesn't freeze the block, 0: freeze the block [optional, type: list, default:[0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0]]
 
 ### Head-Prompt SAM
 
