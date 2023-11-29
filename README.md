@@ -202,3 +202,18 @@ python ./notebooks/test_ori_sam.py -net sam -exp_name test_original_on_10028 -sa
 * Kirillov, Alexander, et al. "Segment anything." arXiv preprint arXiv:2304.02643 (2023).
 * Jia, Menglin, et al. "Visual prompt tuning." European Conference on Computer Vision. Cham: Springer Nature Switzerland, 2022.
 
+## Citation
+
+If you find our work useful in your research, please consider citing:
+
+```
+@misc{he2023adapting,
+      title={Adapting Segment Anything Model (SAM) through Prompt-based Learning for Enhanced Protein Identification in Cryo-EM Micrographs}, 
+      author={Fei He and Zhiyuan Yang and Mingyue Gao and Biplab Poudel and Newgin Sam Ebin Sam Dhas and Rajan Gyawali and Ashwin Dhakal and Jianlin Cheng and Dong Xu},
+      year={2023},
+      eprint={2311.16140},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+```
+
