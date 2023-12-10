@@ -78,7 +78,7 @@ if args.dataset == 'CryoPPP':
     #                                       transform_msk=transform_test_seg, mode='test', prompt=args.prompt_approach)
 
     turkey_valid_dataset = CryopppDataset(args, args.data_path, transform=transform_test,
-                                          transform_msk=transform_test_seg, mode='11056', prompt=args.prompt_approach)
+                                          transform_msk=transform_test_seg, mode='test', prompt=args.prompt_approach)
 
     nice_test_loader = DataLoader(turkey_valid_dataset, batch_size=args.b, shuffle=False, num_workers=8,
                                   pin_memory=True)

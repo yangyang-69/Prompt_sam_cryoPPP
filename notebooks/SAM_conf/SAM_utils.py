@@ -21,7 +21,7 @@ import torchvision.utils as vutils
 from torch.autograd import Variable
 from torch import autograd
 import random
-from detectron2 import _C
+# from detectron2 import _C
 
 import collections
 import logging
