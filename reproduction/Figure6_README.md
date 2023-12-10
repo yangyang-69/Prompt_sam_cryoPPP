@@ -57,7 +57,7 @@ You can visualize the segmentation results of the test dataset through the **'vi
 
 - #### checkpoint
   
-    - Baidu Netdisk  https://pan.baidu.com/s/1-vtvVXn1JtrQwq-MsunXYw   (d4u9)
+    - Baidu Netdisk  链接：https://pan.baidu.com/s/1zLggBtF_VC2ueiL5VOF9Uw    （77vt）
    - OneDrive: https://mailmissouri-my.sharepoint.com/:f:/g/personal/nemf4_umsystem_edu/EmfzAbGhvkBJp0bXbrePf-4BqoWNydPKa2KJPxpNHk0f4A?e=uv464S
      
    
@@ -157,9 +157,9 @@ You can visualize the segmentation results of the test dataset through the **'vi
 
 - #### checkpoint
   
-    - Baidu Netdisk:  https://pan.baidu.com/s/1guRGeuekxltPAWO29Tkirw   (djgg)
+    - Baidu Netdisk:  链接：https://pan.baidu.com/s/1zLggBtF_VC2ueiL5VOF9Uw  （77vt）
     - OneDrive: https://mailmissouri-my.sharepoint.com/:f:/g/personal/nemf4_umsystem_edu/ElpZyGNyicdAleyEFfcizg0BBu8oQi7mGUuhVYSsC_Libw?e=KbghKg
-   
+     
    ```
    📦checkpoint
     ┣ 📂Figure6
@@ -185,4 +185,3 @@ You can visualize the segmentation results of the test dataset through the **'vi
   - -b: Batch size [optional, type: int, default: 1]
   - -dataset: CryoPPP [optional, type: str, default: CryoPPP]
   - -image_encoder_configuration: Image encoder configuration: 0: original sam. 1: space adapter. 2:MLP adapter. 3: space adapter + MLP adapter. [optional, type: list, default:[3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3]]
-    

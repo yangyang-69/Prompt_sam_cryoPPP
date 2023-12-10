@@ -134,7 +134,7 @@ You can visualize the segmentation results of the test dataset through the **'vi
 ### Encoder-Prompt SAM
 
 - checkpoint:
-    - Baidu Netdisk https://pan.baidu.com/s/1WtorfsG5CgQg0LHzwUxwJQ   (w8yn)
+    - Baidu Netdisk 链接：https://pan.baidu.com/s/1MHINELJZH9O2qW3I2jh9dQ （9hoh）
     - OneDrive: https://mailmissouri-my.sharepoint.com/:f:/g/personal/nemf4_umsystem_edu/Er3dHvWhhEdDkE3D40tcB0QBhDgABUIqkcEp_MsRJU5wdA?e=Is4ozj
     
     ```
