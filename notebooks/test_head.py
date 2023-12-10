@@ -15,8 +15,7 @@ from torch.autograd import Function
 from monai.losses import DiceCELoss
 import torchvision.utils as vutils
 import torch.nn as nn
-from segment_anything import sam_model_registry
-from segment_anything import build_sam_vit_h,build_sam_vit_b
+from segment_anything.build_sam import sam_model_registry,build_sam_vit_h,build_sam_vit_b
 
 def build_all_layer_point_grids(
     n_per_side: int, n_layers: int, scale_per_layer: int
@@ -221,7 +220,7 @@ if __name__ == '__main__':
     parser.add_argument('-bs', type=int, default=1, help='batch size for dataloader')
     parser.add_argument('-model_type', type=str, default="vit_h", help='')
     parser.add_argument('-ckpt', required=True, type=str, help='the checkpoint you want to test')
-    parser.add_argument('-save_path', type=str, required=True, help='the path to save your test result')
+    parser.add_argument('-save_path', type=str, help='the path to save your test result')
     args = parser.parse_args()
 
     image_path = f'{args.data_path}/test/images/'
