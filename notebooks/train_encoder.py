@@ -78,9 +78,6 @@ if args.dataset == 'CryoPPP':
     nice_valid_loader = DataLoader(valid_dataset, batch_size=args.b, shuffle=False, num_workers=8, pin_memory=True)
     '''end'''
 
-elif args.dataset == 'decathlon':
-    nice_train_loader, nice_valid_loader, transform_train, transform_val, train_list, val_list = get_decath_loader(args)
-
 '''checkpoint path and tensorboard'''
 
 checkpoint_path = os.path.join(settings.CHECKPOINT_PATH, args.net, settings.TIME_NOW)
