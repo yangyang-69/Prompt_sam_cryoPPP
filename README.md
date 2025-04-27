@@ -204,16 +204,17 @@ python ./notebooks/test_ori_sam.py -net sam -exp_name test_original_on_10028 -sa
 
 ## Citation
 
-If you find our work useful in your research, please consider citing:
-
-```
-@misc{he2023adapting,
-      title={Adapting Segment Anything Model (SAM) through Prompt-based Learning for Enhanced Protein Identification in Cryo-EM Micrographs}, 
-      author={Fei He and Zhiyuan Yang and Mingyue Gao and Biplab Poudel and Newgin Sam Ebin Sam Dhas and Rajan Gyawali and Ashwin Dhakal and Jianlin Cheng and Dong Xu},
-      year={2023},
-      eprint={2311.16140},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
+If you find our work useful in your research, please consider citing <https://ieeexplore.ieee.org/document/10803288>:
+```latex
+@INPROCEEDINGS{10803288,
+  author={He, Fei and Yang, Zhiyuan and Gao, Mingyue and Poudel, Biplab and Sam Ebin Sam Dhas, Newgin and Gyawali, Rajan and Dhakal, Ashwin and Cheng, Jianlin and Xu, Dong},
+  booktitle={2024 IEEE International Conference on Medical Artificial Intelligence (MedAI)}, 
+  title={Adapting Segment Anything Model (SAM) through Prompt-based Learning for Enhanced Protein Identification in Cryo-EM Micrographs}, 
+  year={2024},
+  volume={},
+  number={},
+  pages={9-20},
+  keywords={Proteins;Training;Protein engineering;Image segmentation;Adaptation models;Computational modeling;Object detection;Object recognition;Photomicrography;Biomedical imaging;Cryo-EM;Protein picking;Segment anything model;Prompt-based learning;Image segmentation},
+  doi={10.1109/MedAI62885.2024.00009}}
 }
 ```
-
